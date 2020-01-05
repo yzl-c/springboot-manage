@@ -1,0 +1,50 @@
+#服务端口
+server:
+  port: 8080
+spring:
+  #数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.107.124.163:3306/owner_project?useUnicode=true&characterEncoding=utf-8
+    username: yzl
+    password: ttuu1212
+    sql-script-encoding: utf-8
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      initial-size: 5
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      max-pool-prepared-statement-per-connection-size: 20
+    #JPA相关配置
+    #  jpa:
+    #    hibernate:
+    #      #禁止根据实体类自动更新表操作
+    #      ddl-auto: none
+    #显示SQL语句
+  #    show-sql: true
+  #关闭thymeleaf的缓存，不然在开发过程中修改页面不会立刻生效需要重启，生产可配置为true
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+  devtools:
+    restart:
+      enabled: true # 配置热部署
+      additional-paths: src/main/java
+#Mybatis配置
+mybatis:
+  #.xml文件路径配置
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  #类别名
+  type-aliases-package: owner.yuzl.manage.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+#mybatis sql日志
+logging:
+  level:
+    owner.yuzl.manage.mapper: debug
