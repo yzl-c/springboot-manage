@@ -5,9 +5,14 @@ spring:
   #数据源
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://47.107.124.163:3306/owner_project?useUnicode=true&characterEncoding=utf-8
-    username: yzl
-    password: ttuu1212
+#    服务器
+#    url: jdbc:mysql://47.107.124.163:3306/owner_project?useUnicode=true&characterEncoding=utf-8
+#    username: yzl
+#    password: ttuu1212
+#    本地
+    url: jdbc:mysql://127.0.0.1:3306/owner_project?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
     sql-script-encoding: utf-8
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -18,13 +23,15 @@ spring:
       time-between-eviction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
       max-pool-prepared-statement-per-connection-size: 20
-    #JPA相关配置
-    #  jpa:
-    #    hibernate:
-    #      #禁止根据实体类自动更新表操作
-    #      ddl-auto: none
-    #显示SQL语句
-  #    show-sql: true
+  #JPA相关配置
+  jpa:
+    hibernate:
+      #禁止根据实体类自动更新表操作
+      ddl-auto: none
+      naming:
+        #显示SQL语句
+        show-sql: true
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   #关闭thymeleaf的缓存，不然在开发过程中修改页面不会立刻生效需要重启，生产可配置为true
   thymeleaf:
     cache: false

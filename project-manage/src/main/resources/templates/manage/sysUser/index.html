@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>系统管理</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="layui-inline" style="float: right;">
-                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="search">搜索</button>
+                        <button type="submit" id="searchBtn" class="layui-btn" lay-submit="" lay-filter="search">搜索</button>
                     </div>
                 </div>
             </form>
@@ -43,28 +43,6 @@
     </div>
 
     <div class="layui-footer" th:include="common/footer :: common_footer">
-    </div>
-</div>
-<div id="module_hidden" style="display: none">
-    <div id="createForm">
-        <div class="layui-form-item" style="text-align: center;margin-top: 30px;">
-            <label class="layui-form-label" style="float: none;display: inline-block;">用户账号</label>
-            <div class="layui-input-inline" style="float: none;width: 230px;">
-                <input type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label" style="float: none;display: inline-block;">用户名称</label>
-            <div class="layui-input-inline" style="float: none;width: 230px;">
-                <input type="text" name="name" required  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item" style="text-align: center;">
-            <label class="layui-form-label" style="float: none;display: inline-block;">用户密码</label>
-            <div class="layui-input-inline" style="float: none;width: 230px;">
-                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-            </div>
-        </div>
     </div>
 </div>
 </body>

@@ -7,6 +7,7 @@ import org.springframework.util.ObjectUtils;
 import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.po.SysUserPO;
 import owner.yuzl.manage.mapper.SysUserMapper;
+import owner.yuzl.manage.repository.SysUserRepository;
 import owner.yuzl.manage.service.SysUserService;
 
 import java.util.HashMap;
@@ -23,6 +24,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     SysUserMapper sysUserMapper;
+
+    @Autowired
+    SysUserRepository sysUserRepository;
 
     @Override
     public int countTotal(String search) {

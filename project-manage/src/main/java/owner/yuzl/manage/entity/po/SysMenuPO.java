@@ -1,44 +1,34 @@
 package owner.yuzl.manage.entity.po;
 
+import lombok.Data;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+
 /**
  * @Author：yzl_c
  * @Date：2019/12/15 16:28
  * @Description：
  */
+@Data
 public class SysMenuPO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String code;
 
     private String name;
 
-    public SysMenuPO() {
-    }
+    private Integer createUser;
 
-    public SysMenuPO(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
+    private Integer modifyUser;
 
-    public String getCode() {
-        return code;
-    }
+    private Date createTime;
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+    private Date modifyTime;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "SysMenuPO{" +
-                "code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    private Integer deleted;
 }

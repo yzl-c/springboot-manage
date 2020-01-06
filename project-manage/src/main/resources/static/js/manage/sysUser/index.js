@@ -43,44 +43,24 @@ table.on('toolbar(sysUserTable)', function(obj){
     switch(obj.event){
         case 'add':
             layer.open({
-                type: 1,
+                type: 2,
                 skin: 'layui-layer-rim', //样式类名
                 title: '用户新增',
                 closeBtn: 1, //不显示关闭按钮
                 area: ['400px', '400px'],
                 shadeClose: true, //开启遮罩关闭
-                content: $('#createForm').html(),
+                content: '/sysUser/toUpdate',
                 btn: ['保存','关闭'],
                 success: function(layero, index) {
-                    layero.addClass('layui-form');
-                    // 将保存按钮改变成提交按钮
-                    layero.find('.layui-layer-btn0').attr({
-                        'lay-filter': 'createForm',
-                        'lay-submit': ''
-                    });
+
                 },
                 yes: function (index) {
-                    //当点击‘确定’按钮的时候，获取弹出层返回的值
-                    form.on('submit(createForm)', function (createFormData) {
-                        $.ajax({
-                            url: '/sysUser/create',
-                            data: createFormData.field,
-                            type: "POST",
-                            success: function (returnData) {
-                                layer.alert(returnData);
-                                table.reload('sysUserTable', {
-                                    page: {
-                                        curr: 1 //重新从第 1 页开始
-                                    },
-                                    where: {
-                                        search: searchFormData
-                                    }
-                                });
-                                layer.close(index);
-                            }
-                        });
-                        return false;
-                    });
+                    // 获取弹出层中的form表单元素
+                    var formSubmit=layer.getChildFrame('form', index);
+                    // 获取表单中的提交按钮（在我的表单里第一个button按钮就是提交按钮，使用find方法寻找即可）
+                    var submited = formSubmit.find('button')[0];
+                    // 触发点击事件，会对表单进行验证，验证成功则提交表单，失败则返回错误信息
+                    submited.click();
                 }
             });
             break;

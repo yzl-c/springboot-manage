@@ -1,44 +1,35 @@
 package owner.yuzl.manage.entity.po;
 
+import lombok.Data;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+
 /**
  * @Author：yzl-c
  * @Date：2019/12/15 16:22
  * @Description：
  */
+@Data
 public class SysAuthPO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String code;
 
     private String name;
 
-    public SysAuthPO() {
-    }
+    private Integer createUser;
 
-    public SysAuthPO(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
+    private Integer modifyUser;
 
-    public String getCode() {
-        return code;
-    }
+    private Date createTime;
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+    private Date modifyTime;
 
-    public String getName() {
-        return name;
-    }
+    private Integer deleted;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "SysAuthPO{" +
-                "code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
