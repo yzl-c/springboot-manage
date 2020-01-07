@@ -4,7 +4,7 @@ var $ = layui.$;
 form.on('submit(formVerify)',function (formData) {
     // 提交成功后返回信息，关闭弹出层
     $.ajax({
-        url: '/sysUser/create',
+        url: '/sysUser/update',
         data: formData.field,
         type: "POST",
         success: function (returnData) {

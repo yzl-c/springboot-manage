@@ -9,22 +9,28 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <form class="layui-form" action="" lay-filter="">
+        <div class="layui-hide">
+            <input type="hidden" name="id" class="layui-input" th:value="${sysUser?.id}">
+        </div>
         <div class="layui-form-item" >
             <label class="layui-form-label" >用户账号</label>
             <div class="layui-input-inline">
-                <input type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                <input type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input"
+                       th:value="${sysUser?.account}">
             </div>
         </div>
         <div class="layui-form-item" >
             <label class="layui-form-label" >用户名称</label>
             <div class="layui-input-inline" >
-                <input type="text" name="name" required  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+                <input type="text" name="name" required  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input"
+                       th:value="${sysUser?.name}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">用户密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input"
+                       th:value="${sysUser?.password}">
             </div>
         </div>
         <div class="layui-form-item">

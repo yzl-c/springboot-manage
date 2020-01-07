@@ -16,5 +16,7 @@ public interface SysUserService {
 
     List<SysUserPO> getPage(String search, BasePage page);
 
-    void create(SysUserPO sysUserPO);
+    void update(SysUserPO sysUserPO);
+
+    SysUserPO getOneById(Long id);
 }

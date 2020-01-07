@@ -59,7 +59,12 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void create(SysUserPO sysUserPO) {
+    public void update(SysUserPO sysUserPO) {
         sysUserRepository.save(sysUserPO);
+    }
+
+    @Override
+    public SysUserPO getOneById(Long id) {
+        return sysUserRepository.getOne(id);
     }
 }
