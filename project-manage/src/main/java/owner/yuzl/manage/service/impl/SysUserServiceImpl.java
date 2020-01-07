@@ -2,6 +2,10 @@ package owner.yuzl.manage.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import owner.yuzl.manage.entity.base.BasePage;
@@ -44,13 +48,18 @@ public class SysUserServiceImpl implements SysUserService {
         if (ObjectUtils.isEmpty(param)) {
             param = new HashMap();
         }
+
         param.put("currentBeginIndex", page.getCurrentBeginIndex());
         param.put("pageSize", page.getPageSize());
+//        SpringDataJpa操作
+//        Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
+//        Pageable pageable = PageRequest.of(0, 10, sort);
+//        Page result = sysUserRepository.findSysUserPOSByAccountAndName((String)param.get("account"), (String)param.get("name"), pageable);
         return sysUserMapper.getPage(param);
     }
 
     @Override
     public void create(SysUserPO sysUserPO) {
-        sysUserMapper.create(sysUserPO);
+        sysUserRepository.save(sysUserPO);
     }
 }

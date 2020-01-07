@@ -20,6 +20,7 @@ import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.base.BaseResultInfo;
 import owner.yuzl.manage.entity.base.ResultInfoPage;
 import owner.yuzl.manage.entity.po.SysUserPO;
+import owner.yuzl.manage.repository.SysUserRepository;
 import owner.yuzl.manage.service.SysUserService;
 
 import javax.servlet.http.HttpServletResponse;

@@ -30,8 +30,8 @@ spring:
       ddl-auto: none
       naming:
         #显示SQL语句
-        show-sql: true
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
   #关闭thymeleaf的缓存，不然在开发过程中修改页面不会立刻生效需要重启，生产可配置为true
   thymeleaf:
     cache: false
