@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Author：yzl_c
  * @Date：2020/1/2 15:20
- * @Description：
+ * @Description：Controller层的日志切面，主要从日志中查看进入了哪个Controller
  */
 @Aspect
 @Component

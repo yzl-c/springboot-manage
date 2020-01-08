@@ -4,8 +4,8 @@ import java.util.List;
 
 /**
  * @Author：yzl_c
- * @Date：2019/12/22 16:17
- * @Description：
+ * @Date：2020/1/2 16:17
+ * @Description：分页实体类
  */
 public class BasePage<T> {
     private static final long serialVersionUID = 5760097915453738435L;

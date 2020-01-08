@@ -9,8 +9,8 @@ import java.util.Date;
 
 /**
  * @Author：yzl_c
- * @Date：2019/12/15 16:28
- * @Description：
+ * @Date：2020/1/2 16:28
+ * @Description：菜单实体类
  */
 @Data
 @Entity

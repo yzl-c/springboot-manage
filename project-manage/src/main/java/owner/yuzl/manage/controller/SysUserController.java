@@ -22,7 +22,6 @@ import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.base.BaseResultInfo;
 import owner.yuzl.manage.entity.base.ResultInfoPage;
 import owner.yuzl.manage.entity.po.SysUserPO;
-import owner.yuzl.manage.repository.SysUserRepository;
 import owner.yuzl.manage.service.SysUserService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +35,8 @@ import java.util.List;
 
 /**
  * @Author：yzl_c
- * @Date：2019/12/22 14:45
- * @Description：
+ * @Date：2020/1/2 14:45
+ * @Description：系统用户Controller
  */
 @Controller
 @RequestMapping(value = "/sysUser")
@@ -47,11 +46,21 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+    /**
+     * 跳转主页
+     * @return 主页视图
+     */
     @GetMapping(value = "/toIndex")
     public String toSysUserIndex() {
         return "manage/sysUser/index";
     }
 
+    /**
+     * 跳转更新系统用户
+     * @param id
+     * @param model
+     * @return 更新视图
+     */
     @GetMapping(value = "/toUpdate")
     public String toSysUserUpdate(Long id, Model model) {
         if (!StringUtils.isEmpty(id)) {
@@ -61,6 +70,11 @@ public class SysUserController {
         return "manage/sysUser/update";
     }
 
+    /**
+     * 获取查询总数
+     * @param search
+     * @return 查询总数
+     */
     @RequestMapping(value = "/getCountTotal", method = RequestMethod.POST)
     @ResponseBody
     public String getCountToal(String search) {
@@ -68,6 +82,13 @@ public class SysUserController {
         return BaseResultInfo.successJson(countTotal);
     }
 
+    /**
+     * 获取查询结果
+     * @param search
+     * @param page
+     * @param limit
+     * @return 查询结果
+     */
     @RequestMapping(value = "/getPage", method = RequestMethod.POST)
     @ResponseBody
     public String getPageJson(String search, Integer page, Integer limit) {
@@ -77,6 +98,11 @@ public class SysUserController {
         return ResultInfoPage.successJson(list, countTotal);
     }
 
+    /**
+     * 执行更新操作
+     * @param sysUserPO
+     * @return 执行结果
+     */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public String update(SysUserPO sysUserPO) {
@@ -84,6 +110,11 @@ public class SysUserController {
         return BaseResultInfo.successMsg();
     }
 
+    /**
+     * 导出Excel表
+     * @param response
+     * @return
+     */
     @GetMapping(value = "/exportExcel")
     @ResponseBody
     public String exportExcel(HttpServletResponse response) {
@@ -129,6 +160,11 @@ public class SysUserController {
         return null;
     }
 
+    /**
+     * 导出pdf
+     * @param response
+     * @return
+     */
     @GetMapping(value = "/exportPdf")
     @ResponseBody
     public String exportPdf(HttpServletResponse response) {

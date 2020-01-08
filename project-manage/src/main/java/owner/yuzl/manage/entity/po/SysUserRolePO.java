@@ -8,8 +8,8 @@ import javax.persistence.*;
 
 /**
  * @Author：yzl_c
- * @Date：2019/12/15 16:28
- * @Description：
+ * @Date：2020/1/2 16:28
+ * @Description：用户角色实体类
  */
 @Data
 @Entity

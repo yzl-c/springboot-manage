@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @Author：yzl_c
  * @Date：2020/1/2 17:55
- * @Description：
+ * @Description：返回结果封装分页实体类
  */
 public class ResultInfoPage extends BaseResultInfo {
     private int count;

@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 
 /**
  * @Author：yzl_c
- * @Date：2019/12/22 15:16
- * @Description：
+ * @Date：2020/1/2 15:16
+ * @Description：返回结果封装基本实体类
  */
 public class BaseResultInfo {
     private int code; //0成功,1失败

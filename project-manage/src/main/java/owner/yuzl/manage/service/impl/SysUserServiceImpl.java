@@ -2,10 +2,6 @@ package owner.yuzl.manage.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import owner.yuzl.manage.entity.base.BasePage;
@@ -20,7 +16,7 @@ import java.util.Map;
 
 /**
  * @Author：yzl_c
- * @Date：2019/12/22 14:46
+ * @Date：2020/1/2 14:46
  * @Description：
  */
 @Service(value = "SysUserService")
