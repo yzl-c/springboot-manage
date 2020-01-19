@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="owner.yuzl.manage.mapper.SysAuthMapper">
+
+    <!--根据账号查询用户-->
+    <select id="getAuthsByRoleCode" parameterType="java.lang.String" resultType="SysAuthPO">
+        SELECT a.id, a.code, a.name
+        FROM T_SYS_AUTH a
+        LEFT JOIN T_SYS_ROLE_AUTH ra
+        ON a.code = ra.auth_code
+        WHERE ra.role_code = #{roleCode}
+    </select>
+
+
+</mapper>

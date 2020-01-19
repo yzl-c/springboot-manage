@@ -1,7 +1,5 @@
 package owner.yuzl.manage.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import owner.yuzl.manage.entity.po.SysUserPO;
 
@@ -12,6 +10,5 @@ import owner.yuzl.manage.entity.po.SysUserPO;
  * @Description：
  */
 public interface SysUserRepository extends JpaRepository<SysUserPO, Long> {
-    Page<SysUserPO> findSysUserPOSByAccountAndName(String account, String name, Pageable pageable);
-
+    SysUserPO findByAccount(String account);
 }

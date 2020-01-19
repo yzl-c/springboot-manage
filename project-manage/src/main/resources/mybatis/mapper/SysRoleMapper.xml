@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="owner.yuzl.manage.mapper.SysRoleMapper">
+
+    <!--根据账号查询用户-->
+    <select id="getRolesByUserAccount" parameterType="java.lang.String" resultType="SysRolePO">
+        SELECT r.id , r.code, r.name
+        FROM T_SYS_ROLE r
+        LEFT JOIN T_SYS_USER_ROLE ur
+        ON r.code = ur.role_code
+        WHERE ur.user_account = #{userAccount}
+    </select>
+
+
+</mapper>

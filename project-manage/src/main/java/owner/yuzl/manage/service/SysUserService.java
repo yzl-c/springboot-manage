@@ -17,7 +17,7 @@ public interface SysUserService {
      * @param search
      * @return
      */
-    int countTotal(String search);
+    long countTotal(String search);
 
     /**
      * 获取查询结果
@@ -39,4 +39,17 @@ public interface SysUserService {
      * @return
      */
     SysUserPO getOneById(Long id);
+
+    /**
+     * 根据ids逻辑删除
+     * @param ids
+     */
+    void logicDelete(String ids);
+
+    /**
+     * 根据账号查询用户
+     * @param account
+     * @return
+     */
+    SysUserPO getUserByAccount(String account);
 }

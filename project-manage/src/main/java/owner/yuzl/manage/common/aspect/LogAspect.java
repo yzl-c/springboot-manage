@@ -24,7 +24,7 @@ public class LogAspect {
 
     @Before("LogAspect()")
     public void doBefore(JoinPoint joinPoint) {
-        String controllerName = joinPoint.getTarget().getClass().getName();
+        String controllerName = joinPoint.getSignature().getName();
         log.info("进入--" + controllerName + "--");
     }
 

@@ -10,50 +10,50 @@ import java.util.List;
  * @Description：返回结果封装分页实体类
  */
 public class ResultInfoPage extends BaseResultInfo {
-    private int count;
+    private long count;
 
     public ResultInfoPage() {
 
     }
 
-    public ResultInfoPage(int code, String msg, List data, int count) {
+    public ResultInfoPage(int code, String msg, List data, long count) {
         super(code, msg, data);
         this.count = count;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 
-    public static ResultInfoPage success(List data, int count) {
+    public static ResultInfoPage success(List data, long count) {
         return new ResultInfoPage(0, "操作成功！", data, count);
     }
 
-    public static ResultInfoPage success(String msg, List data, int count) {
+    public static ResultInfoPage success(String msg, List data, long count) {
         return new ResultInfoPage(0, msg, data, count);
     }
 
-    public static ResultInfoPage fail(List data, int count) {
+    public static ResultInfoPage fail(List data, long count) {
         return new ResultInfoPage(1, "操作失败！", data, count);
     }
 
-    public static ResultInfoPage fail(String msg, List data, int count) {
+    public static ResultInfoPage fail(String msg, List data, long count) {
         return new ResultInfoPage(1, msg, data, count);
     }
 
-    public static String successJson(String msg, List data, int count) {
+    public static String successJson(String msg, List data, long count) {
         return JSON.toJSONString(ResultInfoPage.success(msg, data, count));
     }
 
-    public static String successJson(List data, int count) {
+    public static String successJson(List data, long count) {
         return successJson("", data, count);
     }
 
-    public static String failJson(String msg, List data, int count) {
+    public static String failJson(String msg, List data, long count) {
         return JSON.toJSONString(ResultInfoPage.fail(msg, data, count));
     }
 

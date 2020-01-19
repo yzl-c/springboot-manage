@@ -6,6 +6,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @Author：yzl-c
@@ -41,5 +43,11 @@ public class SysUserPO{
     private Date modifyTime;
 
     private Integer deleted;
+
+    @Transient
+    private List<SysRolePO> roles;
+
+    @Transient
+    private Set<SysAuthPO> permissions;
 
 }

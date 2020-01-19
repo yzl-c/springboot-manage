@@ -4,17 +4,18 @@
 <mapper namespace="owner.yuzl.manage.mapper.SysUserMapper">
     <!--列表查询-->
     <select id="getPage" parameterType="java.util.Map" resultType="SysUserPO">
-        SELECT tsu.id id,
-               tsu.account account,
-               tsu.name name
-          FROM T_SYS_USER tsu
+        SELECT id id,
+               account account,
+               name name
+          FROM T_SYS_USER
         <where>
             <if test="account != null and account != ''">
-                AND INSTR(tsu.account, #{account}) > 0
+                AND INSTR(account, #{account}) > 0
             </if>
             <if test="name != null and name != ''">
-                AND INSTR(tsu.name,#{name}) > 0
+                AND INSTR(name,#{name}) > 0
             </if>
+            AND deleted = 0
         </where>
         <if test="currentBeginIndex != null and pageSize != null">
             limit #{currentBeginIndex}, #{pageSize}
@@ -22,24 +23,50 @@
     </select>
 
     <!--总量查询-->
-    <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Integer">
+    <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
         SELECT COUNT(1)
-        FROM T_SYS_USER tsu
+        FROM T_SYS_USER
         <where>
             <if test="account != null and account != ''">
-                AND INSTR(tsu.account, #{account}) > 0
+                AND INSTR(account, #{account}) > 0
             </if>
             <if test="name != null and name != ''">
-                AND INSTR(tsu.name,#{name}) > 0
+                AND INSTR(name,#{name}) > 0
             </if>
+            AND deleted = 0
         </where>
     </select>
 
+    <!--根据账号查询用户-->
+    <select id="getUserByAccount" parameterType="java.lang.String" resultType="SysUserPO">
+        SELECT id, account, name, password
+        FROM T_SYS_USER
+        WHERE account = #{account}
+        AND deleted = 0
+    </select>
+
     <!--插入-->
-    <insert id="create" parameterType="SysUserPo">
+    <insert id="insert" parameterType="SysUserPo">
         INSERT INTO T_SYS_USER
-        (id, account, name, password)
+        (id, account, name, password, create_time)
         VALUES
-        (null, #{account}, #{name}, #{password})
+        (null, #{account}, #{name}, #{password}, #{createTime})
     </insert>
+
+    <!--更新-->
+    <update id="update" parameterType="SysUserPo">
+        UPDATE T_SYS_USER
+        SET account = #{account}, name = #{name}, password = #{password}, modify_time = #{modifyTime}
+        WHERE id = #{id}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="logicDelete">
+        UPDATE TABLE T_SYS_USER
+        SET deleted = 1
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

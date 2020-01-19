@@ -13,7 +13,13 @@ import java.util.Map;
 public interface SysUserMapper {
     List<SysUserPO> getPage(Map param);
 
-    void create(SysUserPO sysUserPO);
+    void insert(SysUserPO sysUserPO);
 
-    int countTotal(Map param);
+    Long countTotal(Map param);
+
+    void update(SysUserPO sysUserPO);
+
+    void logicDelete(List ids);
+
+    SysUserPO getUserByAccount(String account);
 }

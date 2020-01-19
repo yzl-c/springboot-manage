@@ -8,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,10 +76,11 @@ public class SysUserController {
      * @param search
      * @return 查询总数
      */
+    @RequiresPermissions("admin")
     @RequestMapping(value = "/getCountTotal", method = RequestMethod.POST)
     @ResponseBody
-    public String getCountToal(String search) {
-        int countTotal = sysUserService.countTotal(search);
+    public String getCountTotal(String search) {
+        long countTotal = sysUserService.countTotal(search);
         return BaseResultInfo.successJson(countTotal);
     }
 
@@ -93,7 +95,7 @@ public class SysUserController {
     @ResponseBody
     public String getPageJson(String search, Integer page, Integer limit) {
         BasePage pager = new BasePage(page, limit);
-        int countTotal = sysUserService.countTotal(search);
+        long countTotal = sysUserService.countTotal(search);
         List<SysUserPO> list = sysUserService.getPage(search, pager);
         return ResultInfoPage.successJson(list, countTotal);
     }
@@ -107,6 +109,18 @@ public class SysUserController {
     @ResponseBody
     public String update(SysUserPO sysUserPO) {
         sysUserService.update(sysUserPO);
+        return BaseResultInfo.successMsg();
+    }
+
+    /**
+     * 执行更新操作
+     * @param ids
+     * @return 执行结果
+     */
+    @RequestMapping(value = "/logicDelete", method = RequestMethod.POST)
+    @ResponseBody
+    public String logicDelete(String ids) {
+        sysUserService.logicDelete(ids);
         return BaseResultInfo.successMsg();
     }
 
