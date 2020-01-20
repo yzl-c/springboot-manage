@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="owner.yuzl.manage.mapper.SysMenuMapper">
+
+    <!--获取所有菜单-->
+    <select id="getAllMenus" resultType="SysMenuPO">
+        SELECT id, code, name, parent_id
+        FROM T_SYS_MENU
+        WHERE deleted = 0
+    </select>
+
+
+</mapper>

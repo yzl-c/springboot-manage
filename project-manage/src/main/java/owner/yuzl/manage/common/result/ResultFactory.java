@@ -7,7 +7,7 @@ package owner.yuzl.manage.common.result;
  */
 public class ResultFactory {
 
-    public static Result buildSuccessResult(Object data,String message) {
+    public static Result buildSuccessResult(Object data, String message) {
         return buildResult(data, message, StatusCode.SUCCESS.code);
     }
 
@@ -15,7 +15,7 @@ public class ResultFactory {
         return buildResult(null, message, StatusCode.FAIL.code);
     }
 
-    public static Result buildResult(Object data, String message,Integer resultCode) {
+    public static Result buildResult(Object data, String message, Integer resultCode) {
         return new Result(data, message, resultCode);
     }
 

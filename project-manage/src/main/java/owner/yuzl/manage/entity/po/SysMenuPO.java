@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author：yzl_c
@@ -26,6 +27,9 @@ public class SysMenuPO {
 
     private String name;
 
+    @Column(name = "parent_id")
+    private Long parentId;
+
     @Column(name = "create_user")
     private Integer createUser;
 
@@ -39,4 +43,7 @@ public class SysMenuPO {
     private Date modifyTime;
 
     private Integer deleted;
+
+    @Transient
+    private List<SysMenuPO> subMenus;
 }

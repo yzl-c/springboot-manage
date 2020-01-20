@@ -4,7 +4,6 @@ package owner.yuzl.manage.controller;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,7 @@ import java.util.HashMap;
 @RestController
 public class LoginController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public Result login(SysUserPO user){
+    public Result login(@RequestBody SysUserPO user){
         UsernamePasswordToken token = new UsernamePasswordToken(user.getAccount(), user.getPassword());
         Subject subject = SecurityUtils.getSubject();
         try {
@@ -34,9 +33,11 @@ public class LoginController {
             //获得用户对象
             SysUserPO resultUser = (SysUserPO) subject.getPrincipal();
             HashMap<Object, Object> data = new HashMap<>();
-            data.put("id",resultUser.getId());
-            data.put("account",resultUser.getAccount());
-            return ResultFactory.buildSuccessResult(data,"登录成功");
+            data.put("id", resultUser.getId());
+            data.put("account", resultUser.getAccount());
+            //生成token返回给客户端
+            data.put("token", JWTUtil.sign(resultUser));
+            return ResultFactory.buildSuccessResult(data, "登录成功");
         } catch (AuthenticationException e) {
             //登录失败
             return ResultFactory.buildFailResult("登录失败");

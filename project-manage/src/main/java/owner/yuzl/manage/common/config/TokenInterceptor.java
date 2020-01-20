@@ -15,6 +15,7 @@ import java.io.PrintWriter;
  * @Date：2020/1/18 19:47
  * @Description：
  */
+@Component
 public class TokenInterceptor implements HandlerInterceptor {
 
     @Override

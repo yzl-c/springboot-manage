@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date：2020/1/18 20:11
  * @Description：
  */
+@Configuration
 public class IntercepterConfig implements WebMvcConfigurer {
     private TokenInterceptor tokenInterceptor;
 
@@ -21,7 +22,7 @@ public class IntercepterConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login","/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
+                .excludePathPatterns("/login");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }

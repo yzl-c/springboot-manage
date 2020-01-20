@@ -17,7 +17,7 @@ public class JWTUtil {
     //有效期60分钟
     private static final long EXPIRE_TIME= 60*60*1000;
     //密钥盐
-    private static final String TOKEN_SECRET="token123";
+    private static final String TOKEN_SECRET="yzl123";
 
     /**
      * 签名生成
@@ -30,7 +30,7 @@ public class JWTUtil {
             Date expiresAt = new Date(System.currentTimeMillis() + EXPIRE_TIME);
             token = JWT.create()
                     .withIssuer("auth0")
-                    .withClaim("username", user.getAccount())
+                    .withClaim("account", user.getAccount())
                     .withExpiresAt(expiresAt)
                     // 使用了HMAC256加密算法。
                     .sign(Algorithm.HMAC256(TOKEN_SECRET));
@@ -53,8 +53,8 @@ public class JWTUtil {
             DecodedJWT jwt = verifier.verify(token);
             System.out.println("认证通过：");
             System.out.println("issuer: " + jwt.getIssuer());
-            System.out.println("username: " + jwt.getClaim("username").asString());
-            System.out.println("过期时间：      " + jwt.getExpiresAt());
+            System.out.println("account: " + jwt.getClaim("account").asString());
+            System.out.println("过期时间： " + jwt.getExpiresAt());
             return true;
         } catch (Exception e){
             return false;

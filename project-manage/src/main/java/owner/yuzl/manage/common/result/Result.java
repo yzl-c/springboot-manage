@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class Result {
 
     private Object data;
+
     private HashMap<String,Object> meta =new HashMap<>();
 
     public Result(Object data, String msg, Integer status) {
