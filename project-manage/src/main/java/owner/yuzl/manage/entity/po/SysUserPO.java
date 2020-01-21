@@ -1,10 +1,10 @@
 package owner.yuzl.manage.entity.po;
 
 import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
+//import org.hibernate.annotations.DynamicInsert;
+//import org.hibernate.annotations.DynamicUpdate;
+//
+//import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -15,13 +15,13 @@ import java.util.Set;
  * @Description：用户实体类
  */
 @Data
-@Entity
-@DynamicInsert
-@DynamicUpdate
-@Table(name = "T_SYS_USER")
+//@Entity
+//@DynamicInsert
+//@DynamicUpdate
+//@Table(name = "T_SYS_USER")
 public class SysUserPO{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String account;
@@ -30,24 +30,24 @@ public class SysUserPO{
 
     private String password;
 
-    @Column(name = "create_user")
+//    @Column(name = "create_user")
     private Integer createUser;
 
-    @Column(name = "modify_user")
+//    @Column(name = "modify_user")
     private Integer modifyUser;
 
-    @Column(name = "create_time")
+//    @Column(name = "create_time")
     private Date createTime;
 
-    @Column(name = "modify_time")
+//    @Column(name = "modify_time")
     private Date modifyTime;
 
     private Integer deleted;
 
-    @Transient
-    private List<SysRolePO> roles;
+//    @Transient
+    private SysRolePO role;
 
-    @Transient
+//    @Transient
     private Set<SysAuthPO> permissions;
 
 }

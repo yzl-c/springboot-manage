@@ -1,10 +1,10 @@
 package owner.yuzl.manage.entity.po;
 
 import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
+//import org.hibernate.annotations.DynamicInsert;
+//import org.hibernate.annotations.DynamicUpdate;
+//
+//import javax.persistence.*;
 
 /**
  * @Author：yzl_c
@@ -12,25 +12,25 @@ import javax.persistence.*;
  * @Description：用户角色实体类
  */
 @Data
-@Entity
-@DynamicInsert
-@DynamicUpdate
-@Table(name = "T_SYS_USER_ROLE")
+//@Entity
+//@DynamicInsert
+//@DynamicUpdate
+//@Table(name = "T_SYS_USER_ROLE")
 public class SysUserRolePO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_account")
+//    @Column(name = "user_account")
     private String userAccount;
 
-    @Column(name = "role_code")
+//    @Column(name = "role_code")
     private String roleCode;
 
-    @Column(name = "user_name")
+//    @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "role_name")
+//    @Column(name = "role_name")
     private String roleName;
 
 }

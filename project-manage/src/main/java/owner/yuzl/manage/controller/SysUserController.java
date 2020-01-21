@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import owner.yuzl.manage.common.result.Result;
+import owner.yuzl.manage.common.result.ResultFactory;
+import owner.yuzl.manage.common.result.ResultPage;
 import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.base.BaseResultInfo;
 import owner.yuzl.manage.entity.base.ResultInfoPage;
@@ -32,7 +35,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author：yzl_c
@@ -85,19 +90,18 @@ public class SysUserController {
     }
 
     /**
-     * 获取查询结果
-     * @param search
-     * @param page
-     * @param limit
+     * 获取分页查询结果
+     * @param query
+     * @param pagenum
+     * @param pagesize
      * @return 查询结果
      */
-    @RequestMapping(value = "/getPage", method = RequestMethod.POST)
+    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
     @ResponseBody
-    public String getPageJson(String search, Integer page, Integer limit) {
-        BasePage pager = new BasePage(page, limit);
-        long countTotal = sysUserService.countTotal(search);
-        List<SysUserPO> list = sysUserService.getPage(search, pager);
-        return ResultInfoPage.successJson(list, countTotal);
+    public Result getUsersByPage(String query, Integer pageNum, Integer pageSize) {
+        long total = sysUserService.countTotal(query);
+        List<SysUserPO> dataList = sysUserService.getUsers(query, pageNum, pageSize);
+        return ResultFactory.buildSuccessResult(new ResultPage(total, pageNum, dataList), "请求用户列表数据成功");
     }
 
     /**

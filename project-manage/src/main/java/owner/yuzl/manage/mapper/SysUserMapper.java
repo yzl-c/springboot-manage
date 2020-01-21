@@ -22,4 +22,6 @@ public interface SysUserMapper {
     void logicDelete(List ids);
 
     SysUserPO getUserByAccount(String account);
+
+    List<SysUserPO> getUsers(Map param);
 }

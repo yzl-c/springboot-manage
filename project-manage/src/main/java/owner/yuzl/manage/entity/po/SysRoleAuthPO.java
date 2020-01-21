@@ -1,10 +1,10 @@
 package owner.yuzl.manage.entity.po;
 
 import lombok.Data;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
+//import org.hibernate.annotations.DynamicInsert;
+//import org.hibernate.annotations.DynamicUpdate;
+//
+//import javax.persistence.*;
 
 /**
  * @Author：yzl_c
@@ -12,25 +12,25 @@ import javax.persistence.*;
  * @Description：角色权限实体类
  */
 @Data
-@Entity
-@DynamicInsert
-@DynamicUpdate
-@Table(name = "T_SYS_ROLE_AUTH")
+//@Entity
+//@DynamicInsert
+//@DynamicUpdate
+//@Table(name = "T_SYS_ROLE_AUTH")
 public class SysRoleAuthPO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "role_code")
+//    @Column(name = "role_code")
     private String roleCode;
 
-    @Column(name = "auth_code")
+//    @Column(name = "auth_code")
     private String authCode;
 
-    @Column(name = "role_name")
+//    @Column(name = "role_name")
     private String roleName;
 
-    @Column(name = "auth_name")
+//    @Column(name = "auth_name")
     private String authName;
 
 }

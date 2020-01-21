@@ -24,20 +24,20 @@ spring:
       min-evictable-idle-time-millis: 300000
       max-pool-prepared-statement-per-connection-size: 20
   #JPA相关配置
-  jpa:
-    hibernate:
-      #禁止根据实体类自动更新表操作
-      ddl-auto: none
-      naming:
-        #显示SQL语句
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
-  #关闭thymeleaf的缓存，不然在开发过程中修改页面不会立刻生效需要重启，生产可配置为true
-  thymeleaf:
-    cache: false
-    prefix: classpath:/templates/
-    suffix: .html
-    encoding: UTF-8
+#  jpa:
+#    hibernate:
+#      #禁止根据实体类自动更新表操作
+#      ddl-auto: none
+#      naming:
+#        #显示SQL语句
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#    show-sql: true
+#  #关闭thymeleaf的缓存，不然在开发过程中修改页面不会立刻生效需要重启，生产可配置为true
+#  thymeleaf:
+#    cache: false
+#    prefix: classpath:/templates/
+#    suffix: .html
+#    encoding: UTF-8
   devtools:
     restart:
       enabled: true # 配置热部署

@@ -29,12 +29,10 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return
      */
     @Override
-    public List<SysRolePO> getRolesByUserAccount(String userAccount) {
-        List<SysRolePO> roles = sysRoleMapper.getRolesByUserAccount(userAccount);
-        for (SysRolePO role : roles) {
-            List<SysAuthPO> auths = sysAuthService.getAuthsByRoleCode(role.getCode());
-            role.setPermissions(auths);
-        }
-        return roles;
+    public SysRolePO getRoleByUserAccount(String userAccount) {
+        SysRolePO role = sysRoleMapper.getRoleByUserAccount(userAccount);
+        List<SysAuthPO> auths = sysAuthService.getAuthsByRoleCode(role.getCode());
+        role.setPermissions(auths);
+        return role;
     }
 }

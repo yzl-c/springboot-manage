@@ -12,5 +12,5 @@ import java.util.Map;
  * @Description：
  */
 public interface SysRoleMapper {
-    List<SysRolePO> getRolesByUserAccount(String userAccount);
+    SysRolePO getRoleByUserAccount(String userAccount);
 }

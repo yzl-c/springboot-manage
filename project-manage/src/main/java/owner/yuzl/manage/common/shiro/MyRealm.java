@@ -36,12 +36,11 @@ public class MyRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         SysUserPO user = (SysUserPO) principalCollection.getPrimaryPrincipal();
         Set<SysAuthPO> permissions = new HashSet<>();
-        for (SysRolePO role : user.getRoles()) {
-            //添加角色
-            simpleAuthorizationInfo.addRole(role.getCode());
-            for (SysAuthPO permission : role.getPermissions()) {
-                permissions.add(permission);
-            }
+        //添加角色
+        SysRolePO role = user.getRole();
+        simpleAuthorizationInfo.addRole(role.getCode());
+        for (SysAuthPO permission : role.getPermissions()) {
+            permissions.add(permission);
         }
         //添加权限
         for (SysAuthPO permission : permissions) {

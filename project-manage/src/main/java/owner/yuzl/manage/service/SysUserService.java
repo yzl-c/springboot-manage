@@ -52,4 +52,6 @@ public interface SysUserService {
      * @return
      */
     SysUserPO getUserByAccount(String account);
+
+    List<SysUserPO> getUsers(String query, Integer pageNum, Integer pageSize);
 }

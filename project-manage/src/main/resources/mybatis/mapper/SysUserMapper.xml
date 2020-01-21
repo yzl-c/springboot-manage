@@ -2,23 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="owner.yuzl.manage.mapper.SysUserMapper">
+
+    <resultMap id="userRoleMap" type="SysUserPO">
+        <id property="id" column="id"></id>
+        <result property="account" column="account"></result>
+        <result property="name" column="name"></result>
+        <result property="deleted" column="deleted"></result>
+        <association property="role" column="account" select="owner.yuzl.manage.mapper.SysRoleMapper.getRoleByUserAccount"></association>
+    </resultMap>
+
     <!--列表查询-->
-    <select id="getPage" parameterType="java.util.Map" resultType="SysUserPO">
-        SELECT id id,
-               account account,
-               name name
-          FROM T_SYS_USER
+    <select id="getUsers" parameterType="java.util.Map" resultMap="userRoleMap">
+        SELECT u.id id, u.account account, u.name name
+        FROM T_SYS_USER u
         <where>
             <if test="account != null and account != ''">
-                AND INSTR(account, #{account}) > 0
+                AND INSTR(u.account, #{account}) > 0
             </if>
             <if test="name != null and name != ''">
-                AND INSTR(name,#{name}) > 0
+                AND INSTR(u.name, #{name}) > 0
             </if>
-            AND deleted = 0
+            AND u.deleted = 0
         </where>
-        <if test="currentBeginIndex != null and pageSize != null">
-            limit #{currentBeginIndex}, #{pageSize}
+        <if test="beginIndex != null and pageSize != null">
+            limit #{beginIndex}, #{pageSize}
         </if>
     </select>
 
@@ -31,14 +38,14 @@
                 AND INSTR(account, #{account}) > 0
             </if>
             <if test="name != null and name != ''">
-                AND INSTR(name,#{name}) > 0
+                AND INSTR(name, #{name}) > 0
             </if>
             AND deleted = 0
         </where>
     </select>
 
     <!--根据账号查询用户-->
-    <select id="getUserByAccount" parameterType="java.lang.String" resultType="SysUserPO">
+    <select id="getUserByAccount" parameterType="java.lang.String" resultMap="userRoleMap">
         SELECT id, account, name, password
         FROM T_SYS_USER
         WHERE account = #{account}

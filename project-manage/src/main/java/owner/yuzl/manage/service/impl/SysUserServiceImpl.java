@@ -10,7 +10,6 @@ import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.po.SysRolePO;
 import owner.yuzl.manage.entity.po.SysUserPO;
 import owner.yuzl.manage.mapper.SysUserMapper;
-import owner.yuzl.manage.repository.SysUserRepository;
 import owner.yuzl.manage.service.SysRoleService;
 import owner.yuzl.manage.service.SysUserService;
 
@@ -27,9 +26,6 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     SysUserMapper sysUserMapper;
-
-    @Autowired
-    SysUserRepository sysUserRepository;
 
     @Autowired
     SysRoleService sysRoleService;
@@ -118,7 +114,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public SysUserPO getOneById(Long id) {
-        return sysUserRepository.getOne(id);
+        return null;
     }
 
     /**
@@ -138,8 +134,25 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public SysUserPO getUserByAccount(String account) {
         SysUserPO user = sysUserMapper.getUserByAccount(account);
-        List<SysRolePO> roles = sysRoleService.getRolesByUserAccount(user.getAccount());
-        user.setRoles(roles);
         return user;
+    }
+
+    /**
+     * 获取查询结果
+     * @param query
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<SysUserPO> getUsers(String query, Integer pageNum, Integer pageSize) {
+        Map param = JSON.parseObject(query);
+        if (ObjectUtils.isEmpty(param)) {
+            param = new HashMap();
+        }
+
+        param.put("beginIndex", (pageNum - 1) * pageSize );
+        param.put("pageSize", pageSize);
+        return sysUserMapper.getUsers(param);
     }
 }

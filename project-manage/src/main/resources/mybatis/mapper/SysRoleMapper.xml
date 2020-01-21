@@ -3,8 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="owner.yuzl.manage.mapper.SysRoleMapper">
 
+    <resultMap id="rolePermissionMap" type="SysRolePO">
+        <id property="id" column="id"></id>
+        <result property="code" column="code"></result>
+        <result property="name" column="name"></result>
+        <result property="deleted" column="deleted"></result>
+        <collection property="permissions" column="code" select="owner.yuzl.manage.mapper.SysAuthMapper.getAuthsByRoleCode"></collection>
+    </resultMap>
+
     <!--根据账号查询角色-->
-    <select id="getRolesByUserAccount" parameterType="java.lang.String" resultType="SysRolePO">
+    <select id="getRoleByUserAccount" parameterType="java.lang.String" resultMap="rolePermissionMap">
         SELECT r.id , r.code, r.name
         FROM T_SYS_ROLE r
         LEFT JOIN T_SYS_USER_ROLE ur

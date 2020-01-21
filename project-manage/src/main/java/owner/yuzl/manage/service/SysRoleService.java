@@ -15,5 +15,5 @@ public interface SysRoleService {
      * @param userAccount
      * @return
      */
-    List<SysRolePO> getRolesByUserAccount(String userAccount);
+    SysRolePO getRoleByUserAccount(String userAccount);
 }
