@@ -77,30 +77,17 @@ public class SysUserController {
     }
 
     /**
-     * 获取查询总数
-     * @param search
-     * @return 查询总数
-     */
-    @RequiresPermissions("admin")
-    @RequestMapping(value = "/getCountTotal", method = RequestMethod.POST)
-    @ResponseBody
-    public String getCountTotal(String search) {
-        long countTotal = sysUserService.countTotal(search);
-        return BaseResultInfo.successJson(countTotal);
-    }
-
-    /**
      * 获取分页查询结果
-     * @param query
-     * @param pagenum
-     * @param pagesize
+     * @param queryUser
+     * @param pageNum
+     * @param pageSize
      * @return 查询结果
      */
     @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
     @ResponseBody
-    public Result getUsersByPage(String query, Integer pageNum, Integer pageSize) {
-        long total = sysUserService.countTotal(query);
-        List<SysUserPO> dataList = sysUserService.getUsers(query, pageNum, pageSize);
+    public Result getUsersByPage(SysUserPO queryUser, Integer pageNum, Integer pageSize) {
+        long total = sysUserService.countTotal(queryUser);
+        List<SysUserPO> dataList = sysUserService.getUsers(queryUser, pageNum, pageSize);
         return ResultFactory.buildSuccessResult(new ResultPage(total, pageNum, dataList), "请求用户列表数据成功");
     }
 

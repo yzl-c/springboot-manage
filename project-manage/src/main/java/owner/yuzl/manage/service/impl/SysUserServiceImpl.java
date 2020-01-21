@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import owner.yuzl.manage.common.util.MapUtil;
 import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.po.SysRolePO;
 import owner.yuzl.manage.entity.po.SysUserPO;
@@ -36,7 +37,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @return
      */
     @Override
-    public long countTotal(String search) {
+    public long countTotal(SysUserPO queryUser) {
 //        SysUserPO sysUserPO = JSONObject.parseObject(search, SysUserPO.class);
 //        if (ObjectUtils.isEmpty(sysUserPO)) {
 //            sysUserPO = new SysUserPO();
@@ -49,9 +50,12 @@ public class SysUserServiceImpl implements SysUserService {
 //                .withMatcher("name" ,ExampleMatcher.GenericPropertyMatchers.contains());//全部模糊查询，即%{name}%
 //        Example<SysUserPO> example = Example.of(sysUserPO, matcher);
 //        Long countTotal = sysUserRepository.count(example);
-        Map param = JSON.parseObject(search);
-        if (ObjectUtils.isEmpty(param)) {
-            param = new HashMap();
+        Map param = null;
+        try {
+            param = MapUtil.objectToMap(queryUser);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            System.out.println("Object 转换 Map 异常！");
         }
         Long countTotal = sysUserMapper.countTotal(param);
         return countTotal == null ? 0 : countTotal;
@@ -139,18 +143,20 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 获取查询结果
-     * @param query
+     * @param queryUser
      * @param pageNum
      * @param pageSize
      * @return
      */
     @Override
-    public List<SysUserPO> getUsers(String query, Integer pageNum, Integer pageSize) {
-        Map param = JSON.parseObject(query);
-        if (ObjectUtils.isEmpty(param)) {
-            param = new HashMap();
+    public List<SysUserPO> getUsers(SysUserPO queryUser, Integer pageNum, Integer pageSize) {
+        Map param = null;
+        try {
+            param = MapUtil.objectToMap(queryUser);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            System.out.println("Object 转换 Map 异常！");
         }
-
         param.put("beginIndex", (pageNum - 1) * pageSize );
         param.put("pageSize", pageSize);
         return sysUserMapper.getUsers(param);

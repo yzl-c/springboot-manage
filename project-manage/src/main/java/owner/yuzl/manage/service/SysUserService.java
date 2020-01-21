@@ -14,10 +14,10 @@ public interface SysUserService {
 
     /**
      * 获取查询结果总数
-     * @param search
+     * @param queryUser
      * @return
      */
-    long countTotal(String search);
+    long countTotal(SysUserPO queryUser);
 
     /**
      * 获取查询结果
@@ -53,5 +53,5 @@ public interface SysUserService {
      */
     SysUserPO getUserByAccount(String account);
 
-    List<SysUserPO> getUsers(String query, Integer pageNum, Integer pageSize);
+    List<SysUserPO> getUsers(SysUserPO queryUser, Integer pageNum, Integer pageSize);
 }
