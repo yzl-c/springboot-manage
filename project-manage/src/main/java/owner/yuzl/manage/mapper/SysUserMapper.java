@@ -19,9 +19,11 @@ public interface SysUserMapper {
 
     void update(SysUserPO sysUserPO);
 
-    void logicDelete(List ids);
+    void logicDelete(Long id);
 
     SysUserPO getUserByAccount(String account);
 
     List<SysUserPO> getUsers(Map param);
+
+    SysUserPO getUserById(Long id);
 }

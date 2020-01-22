@@ -33,7 +33,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 获取查询结果总数
-     * @param search
+     * @param queryUser
      * @return
      */
     @Override
@@ -60,6 +60,78 @@ public class SysUserServiceImpl implements SysUserService {
         Long countTotal = sysUserMapper.countTotal(param);
         return countTotal == null ? 0 : countTotal;
     }
+
+    /**
+     * 执行添加操作
+     * @param sysUserPO
+     */
+    @Override
+    public void create(SysUserPO sysUserPO) {
+        sysUserPO.setCreateTime(new Date());
+        sysUserMapper.insert(sysUserPO);
+    }
+
+    /**
+     * 执行更新操作
+     * @param sysUserPO
+     */
+    @Override
+    public void update(SysUserPO sysUserPO) {
+        sysUserPO.setModifyTime(new Date());
+        sysUserMapper.update(sysUserPO);
+    }
+
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    @Override
+    public SysUserPO getOneById(Long id) {
+        return sysUserMapper.getUserById(id);
+    }
+
+    /**
+     * 根据ids（单个或多个id）逻辑删除
+     * @param ids
+     */
+    @Override
+    public void logicDelete(Long id) {
+        sysUserMapper.logicDelete(id);
+    }
+
+    /**
+     * 根据账号查询用户
+     * @param account
+     * @return
+     */
+    @Override
+    public SysUserPO getUserByAccount(String account) {
+        SysUserPO user = sysUserMapper.getUserByAccount(account);
+        return user;
+    }
+
+    /**
+     * 获取查询结果
+     * @param queryUser
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<SysUserPO> getUsers(SysUserPO queryUser, Integer pageNum, Integer pageSize) {
+        Map param = null;
+        try {
+            param = MapUtil.objectToMap(queryUser);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            System.out.println("Object 转换 Map 异常！");
+        }
+        param.put("beginIndex", (pageNum - 1) * pageSize );
+        param.put("pageSize", pageSize);
+        return sysUserMapper.getUsers(param);
+    }
+
 
     /**
      * 获取查询结果
@@ -94,71 +166,5 @@ public class SysUserServiceImpl implements SysUserService {
         param.put("currentBeginIndex", page.getCurrentBeginIndex());
         param.put("pageSize", page.getPageSize());
         return sysUserMapper.getPage(param);
-    }
-
-    /**
-     * 执行更新操作
-     * @param sysUserPO
-     */
-    @Override
-    public void update(SysUserPO sysUserPO) {
-        if (StringUtils.isEmpty(sysUserPO.getId())) {
-            sysUserPO.setCreateTime(new Date());
-            sysUserMapper.insert(sysUserPO);
-        } else {
-            sysUserPO.setModifyTime(new Date());
-            sysUserMapper.update(sysUserPO);
-        }
-    }
-
-    /**
-     * 根据id查询数据
-     * @param id
-     * @return
-     */
-    @Override
-    public SysUserPO getOneById(Long id) {
-        return null;
-    }
-
-    /**
-     * 根据ids（单个或多个id）逻辑删除
-     * @param ids
-     */
-    @Override
-    public void logicDelete(String ids) {
-        sysUserMapper.logicDelete(Arrays.asList(ids.split(",")));
-    }
-
-    /**
-     * 根据账号查询用户
-     * @param account
-     * @return
-     */
-    @Override
-    public SysUserPO getUserByAccount(String account) {
-        SysUserPO user = sysUserMapper.getUserByAccount(account);
-        return user;
-    }
-
-    /**
-     * 获取查询结果
-     * @param queryUser
-     * @param pageNum
-     * @param pageSize
-     * @return
-     */
-    @Override
-    public List<SysUserPO> getUsers(SysUserPO queryUser, Integer pageNum, Integer pageSize) {
-        Map param = null;
-        try {
-            param = MapUtil.objectToMap(queryUser);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            System.out.println("Object 转换 Map 异常！");
-        }
-        param.put("beginIndex", (pageNum - 1) * pageSize );
-        param.put("pageSize", pageSize);
-        return sysUserMapper.getUsers(param);
     }
 }

@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import owner.yuzl.manage.common.result.Result;
 import owner.yuzl.manage.common.result.ResultFactory;
 import owner.yuzl.manage.common.result.ResultPage;
@@ -35,16 +32,14 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author：yzl_c
  * @Date：2020/1/2 14:45
  * @Description：系统用户Controller
  */
-@Controller
+@RestController
 @RequestMapping(value = "/sysUser")
 public class SysUserController {
     private Logger logger = LoggerFactory.getLogger(SysUserController.class);
@@ -77,6 +72,20 @@ public class SysUserController {
     }
 
     /**
+     * 获取用户信息
+     * @param id
+     * @return 用户信息
+     */
+    @RequestMapping(value = "/getUserById/{id}", method = RequestMethod.GET)
+    public Result getUserById(@PathVariable(value = "id") Long id) {
+        if (StringUtils.isEmpty(id)) {
+            return ResultFactory.buildFailResult("获取用户信息失败");
+        }
+        SysUserPO sysUserPO = sysUserService.getOneById(id);
+        return ResultFactory.buildSuccessResult(sysUserPO, "获取用户信息成功");
+    }
+
+    /**
      * 获取分页查询结果
      * @param queryUser
      * @param pageNum
@@ -84,7 +93,6 @@ public class SysUserController {
      * @return 查询结果
      */
     @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-    @ResponseBody
     public Result getUsersByPage(SysUserPO queryUser, Integer pageNum, Integer pageSize) {
         long total = sysUserService.countTotal(queryUser);
         List<SysUserPO> dataList = sysUserService.getUsers(queryUser, pageNum, pageSize);
@@ -92,27 +100,36 @@ public class SysUserController {
     }
 
     /**
-     * 执行更新操作
+     * 执行添加操作
      * @param sysUserPO
      * @return 执行结果
      */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
-    public String update(SysUserPO sysUserPO) {
-        sysUserService.update(sysUserPO);
-        return BaseResultInfo.successMsg();
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public Result create(@RequestBody SysUserPO sysUserPO) {
+        sysUserService.create(sysUserPO);
+        return ResultFactory.buildSuccessResult(null, "添加用户成功");
     }
 
     /**
      * 执行更新操作
-     * @param ids
+     * @param sysUserPO
      * @return 执行结果
      */
-    @RequestMapping(value = "/logicDelete", method = RequestMethod.POST)
-    @ResponseBody
-    public String logicDelete(String ids) {
-        sysUserService.logicDelete(ids);
-        return BaseResultInfo.successMsg();
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public Result update(@RequestBody SysUserPO sysUserPO) {
+        sysUserService.update(sysUserPO);
+        return ResultFactory.buildSuccessResult(null, "更新成功");
+    }
+
+    /**
+     * 执行删除操作
+     * @param id
+     * @return 执行结果
+     */
+    @RequestMapping(value = "/logicDelete/{id}", method = RequestMethod.DELETE)
+    public Result logicDelete(@PathVariable(value = "id") Long id) {
+        sysUserService.logicDelete(id);
+        return ResultFactory.buildSuccessResult(null, "删除成功");
     }
 
     /**
@@ -121,7 +138,6 @@ public class SysUserController {
      * @return
      */
     @GetMapping(value = "/exportExcel")
-    @ResponseBody
     public String exportExcel(HttpServletResponse response) {
         response.reset(); // 清除buffer缓存
         String excelName = "系统用户";
@@ -171,7 +187,6 @@ public class SysUserController {
      * @return
      */
     @GetMapping(value = "/exportPdf")
-    @ResponseBody
     public String exportPdf(HttpServletResponse response) {
         response.reset(); // 清除buffer缓存
         String pdfName = "系统用户";

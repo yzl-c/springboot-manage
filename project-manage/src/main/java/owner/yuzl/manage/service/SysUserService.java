@@ -28,6 +28,12 @@ public interface SysUserService {
     List<SysUserPO> getPage(String search, BasePage page);
 
     /**
+     * 执行添加操作
+     * @param sysUserPO
+     */
+    void create(SysUserPO sysUserPO);
+
+    /**
      * 执行更新操作
      * @param sysUserPO
      */
@@ -41,10 +47,10 @@ public interface SysUserService {
     SysUserPO getOneById(Long id);
 
     /**
-     * 根据ids逻辑删除
-     * @param ids
+     * 根据id逻辑删除
+     * @param id
      */
-    void logicDelete(String ids);
+    void logicDelete(Long id);
 
     /**
      * 根据账号查询用户

@@ -45,6 +45,13 @@
     </select>
 
     <!--根据账号查询用户-->
+    <select id="getUserById" parameterType="java.lang.Long" resultMap="userRoleMap">
+        SELECT id, account, name, password
+        FROM T_SYS_USER
+        WHERE id = #{id}
+    </select>
+
+    <!--根据账号查询用户-->
     <select id="getUserByAccount" parameterType="java.lang.String" resultMap="userRoleMap">
         SELECT id, account, name, password
         FROM T_SYS_USER
@@ -69,11 +76,12 @@
 
     <!--逻辑删除-->
     <update id="logicDelete">
-        UPDATE TABLE T_SYS_USER
+        UPDATE T_SYS_USER
         SET deleted = 1
-        WHERE id IN
-        <foreach collection="ids" item="id" open="(" close=")" separator=",">
-            #{id}
-        </foreach>
+        WHERE id = #{id}
+<!--        IN-->
+<!--        <foreach collection="ids" item="id" open="(" close=")" separator=",">-->
+<!--            #{id}-->
+<!--        </foreach>-->
     </update>
 </mapper>
