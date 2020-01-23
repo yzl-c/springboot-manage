@@ -11,9 +11,25 @@ import java.util.List;
  */
 public interface SysRoleService {
     /**
+     * 获取查询结果总数
+     * @param sysPermission
+     * @return
+     */
+    long countTotal(SysRolePO sysRolePO);
+
+    /**
      * 根据用户账号查询角色
      * @param userAccount
      * @return
      */
     SysRolePO getRoleByUserAccount(String userAccount);
+
+    /**
+     * 查询角色列表
+     * @param sysRole
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<SysRolePO> getRoleList(SysRolePO sysRole, Integer pageNum, Integer pageSize);
 }

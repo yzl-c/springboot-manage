@@ -6,6 +6,7 @@ import lombok.Data;
 //
 //import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author：yzl-c
@@ -26,6 +27,10 @@ public class SysPermissionPO {
 
     private String name;
 
+    private Long parentId;
+
+    private Integer level;
+
 //    @Column(name = "create_user")
     private Integer createUser;
 
@@ -40,4 +45,5 @@ public class SysPermissionPO {
 
     private Integer deleted;
 
+    private List<SysPermissionPO> subPermissions;
 }

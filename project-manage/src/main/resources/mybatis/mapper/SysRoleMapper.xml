@@ -11,14 +11,45 @@
         <collection property="permissions" column="code" select="owner.yuzl.manage.mapper.SysPermissionMapper.getPermissionsByRoleCode"></collection>
     </resultMap>
 
+    <!--总量查询-->
+    <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM T_SYS_ROLE
+        <where>
+            <if test="code != null and code != ''">
+                AND INSTR(code, #{code}) > 0
+            </if>
+            <if test="name != null and name != ''">
+                AND INSTR(name, #{name}) > 0
+            </if>
+            AND deleted = 0
+        </where>
+    </select>
+
     <!--根据账号查询角色-->
     <select id="getRoleByUserAccount" parameterType="java.lang.String" resultMap="rolePermissionMap">
-        SELECT r.id , r.code, r.name
+        SELECT r.id, r.code, r.name
         FROM T_SYS_ROLE r
         LEFT JOIN T_SYS_USER_ROLE ur
         ON r.code = ur.role_code
         WHERE ur.user_account = #{userAccount}
     </select>
 
-
+    <!--查询角色列表-->
+    <select id="getRolesList" parameterType="java.util.Map" resultMap="rolePermissionMap">
+        SELECT id , code, name
+        FROM T_SYS_ROLE
+        <where>
+            <if test="code != null and code != ''">
+                AND INSTR(code, #{code}) > 0
+            </if>
+            <if test="name != null and name != ''">
+                AND INSTR(name, #{name}) > 0
+            </if>
+            AND deleted = 0
+        </where>
+        <if test="beginIndex != null and pageSize != null">
+            LIMIT #{beginIndex}, #{pageSize}
+        </if>
+    </select>
 </mapper>

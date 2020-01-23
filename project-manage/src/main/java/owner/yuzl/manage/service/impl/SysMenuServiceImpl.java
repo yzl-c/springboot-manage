@@ -30,7 +30,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         // 获取一级菜单
         List<SysMenuPO> rootMenus = new ArrayList<>();
         for (SysMenuPO menu : allMenus) {
-            // 父节点是0的，为一级菜单
+            // 父菜单是0的，为一级菜单
             if(menu.getParentId() == 0){
                 rootMenus.add(menu);
             }
@@ -44,17 +44,17 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     /**
-     * 获取子节点
-     * @param id 父节点id
+     * 获取子菜单
+     * @param id 父菜单id
      * @param allMenus 所有菜单列表
-     * @return 每个根节点下，所有子菜单列表
+     * @return 每个根菜单下，所有子菜单列表
      */
     public List<SysMenuPO> getSubMenus(Long id, List<SysMenuPO> allMenus){
         //子菜单
         List<SysMenuPO> subMenuList = new ArrayList<>();
         for (SysMenuPO menu : allMenus) {
-            // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
-            //相等说明：为该根节点的子节点。
+            // 遍历所有菜单，将所有菜单的父id与传过来的根菜单的id比较
+            //相等说明：为该根菜单的子菜单。
             if(menu.getParentId().equals(id)){
                 subMenuList.add(menu);
             }
@@ -63,7 +63,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         for (SysMenuPO menu : subMenuList) {
             menu.setSubMenus(getSubMenus(menu.getId(), allMenus));
         }
-        //如果节点下没有子节点，返回一个空List（递归退出）
+        //如果菜单下没有子菜单，返回一个空List（递归退出）
         if(subMenuList.size() == 0){
             return new ArrayList<>();
         }

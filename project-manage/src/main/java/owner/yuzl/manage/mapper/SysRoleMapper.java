@@ -13,4 +13,8 @@ import java.util.Map;
  */
 public interface SysRoleMapper {
     SysRolePO getRoleByUserAccount(String userAccount);
+
+    List<SysRolePO> getRolesList(Map param);
+
+    Long countTotal(Map param);
 }
