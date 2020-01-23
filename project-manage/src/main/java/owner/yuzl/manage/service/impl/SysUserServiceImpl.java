@@ -92,12 +92,12 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
-     * 根据ids（单个或多个id）逻辑删除
-     * @param ids
+     * 根据id逻辑删除
+     * @param id
      */
     @Override
-    public void logicDelete(Long id) {
-        sysUserMapper.logicDelete(id);
+    public void logicDeleteById(Long id) {
+        sysUserMapper.logicDeleteById(id);
     }
 
     /**

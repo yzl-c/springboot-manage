@@ -50,7 +50,7 @@ public interface SysUserService {
      * 根据id逻辑删除
      * @param id
      */
-    void logicDelete(Long id);
+    void logicDeleteById(Long id);
 
     /**
      * 根据账号查询用户

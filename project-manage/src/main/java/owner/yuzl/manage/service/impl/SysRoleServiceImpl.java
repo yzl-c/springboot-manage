@@ -2,10 +2,10 @@ package owner.yuzl.manage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import owner.yuzl.manage.entity.po.SysAuthPO;
+import owner.yuzl.manage.entity.po.SysPermissionPO;
 import owner.yuzl.manage.entity.po.SysRolePO;
 import owner.yuzl.manage.mapper.SysRoleMapper;
-import owner.yuzl.manage.service.SysAuthService;
+import owner.yuzl.manage.service.SysPermissionService;
 import owner.yuzl.manage.service.SysRoleService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     SysRoleMapper sysRoleMapper;
 
     @Autowired
-    SysAuthService sysAuthService;
+    SysPermissionService sysPermissionService;
 
     /**
      * 根据用户账号查询角色
@@ -31,7 +31,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public SysRolePO getRoleByUserAccount(String userAccount) {
         SysRolePO role = sysRoleMapper.getRoleByUserAccount(userAccount);
-        List<SysAuthPO> auths = sysAuthService.getAuthsByRoleCode(role.getCode());
+        List<SysPermissionPO> auths = sysPermissionService.getPermissionsByRoleCode(role.getCode());
         role.setPermissions(auths);
         return role;
     }

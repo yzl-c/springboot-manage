@@ -6,7 +6,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import owner.yuzl.manage.entity.po.SysAuthPO;
+import owner.yuzl.manage.entity.po.SysPermissionPO;
 import owner.yuzl.manage.entity.po.SysRolePO;
 import owner.yuzl.manage.entity.po.SysUserPO;
 import owner.yuzl.manage.service.SysUserService;
@@ -35,15 +35,15 @@ public class MyRealm extends AuthorizingRealm {
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         SysUserPO user = (SysUserPO) principalCollection.getPrimaryPrincipal();
-        Set<SysAuthPO> permissions = new HashSet<>();
+        Set<SysPermissionPO> permissions = new HashSet<>();
         //添加角色
         SysRolePO role = user.getRole();
         simpleAuthorizationInfo.addRole(role.getCode());
-        for (SysAuthPO permission : role.getPermissions()) {
+        for (SysPermissionPO permission : role.getPermissions()) {
             permissions.add(permission);
         }
         //添加权限
-        for (SysAuthPO permission : permissions) {
+        for (SysPermissionPO permission : permissions) {
             simpleAuthorizationInfo.addStringPermission(permission.getCode());
         }
         return simpleAuthorizationInfo;

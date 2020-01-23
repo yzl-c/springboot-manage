@@ -6,7 +6,6 @@ import lombok.Data;
 //
 //import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -48,6 +47,6 @@ public class SysUserPO{
     private SysRolePO role;
 
 //    @Transient
-    private Set<SysAuthPO> permissions;
+    private Set<SysPermissionPO> permissions;
 
 }

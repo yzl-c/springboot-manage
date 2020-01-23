@@ -25,7 +25,7 @@
             AND u.deleted = 0
         </where>
         <if test="beginIndex != null and pageSize != null">
-            limit #{beginIndex}, #{pageSize}
+            LIMIT #{beginIndex}, #{pageSize}
         </if>
     </select>
 
@@ -44,7 +44,7 @@
         </where>
     </select>
 
-    <!--根据账号查询用户-->
+    <!--根据id查询用户-->
     <select id="getUserById" parameterType="java.lang.Long" resultMap="userRoleMap">
         SELECT id, account, name, password
         FROM T_SYS_USER
@@ -75,7 +75,7 @@
     </update>
 
     <!--逻辑删除-->
-    <update id="logicDelete">
+    <update id="logicDeleteById">
         UPDATE T_SYS_USER
         SET deleted = 1
         WHERE id = #{id}

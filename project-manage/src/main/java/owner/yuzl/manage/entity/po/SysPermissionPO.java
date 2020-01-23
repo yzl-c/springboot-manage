@@ -17,7 +17,7 @@ import java.util.Date;
 //@DynamicInsert
 //@DynamicUpdate
 //@Table(name = "T_SYS_AUTH")
-public class SysAuthPO {
+public class SysPermissionPO {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

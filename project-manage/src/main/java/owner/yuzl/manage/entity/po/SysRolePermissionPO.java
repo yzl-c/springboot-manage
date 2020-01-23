@@ -16,7 +16,7 @@ import lombok.Data;
 //@DynamicInsert
 //@DynamicUpdate
 //@Table(name = "T_SYS_ROLE_AUTH")
-public class SysRoleAuthPO {
+public class SysRolePermissionPO {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

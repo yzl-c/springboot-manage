@@ -126,9 +126,9 @@ public class SysUserController {
      * @param id
      * @return 执行结果
      */
-    @RequestMapping(value = "/logicDelete/{id}", method = RequestMethod.DELETE)
-    public Result logicDelete(@PathVariable(value = "id") Long id) {
-        sysUserService.logicDelete(id);
+    @RequestMapping(value = "/logicDeleteById/{id}", method = RequestMethod.DELETE)
+    public Result logicDeleteById(@PathVariable(value = "id") Long id) {
+        sysUserService.logicDeleteById(id);
         return ResultFactory.buildSuccessResult(null, "删除成功");
     }
 

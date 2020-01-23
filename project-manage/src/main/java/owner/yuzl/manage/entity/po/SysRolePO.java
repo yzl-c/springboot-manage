@@ -42,5 +42,5 @@ public class SysRolePO {
     private Integer deleted;
 
 //    @Transient
-    private List<SysAuthPO> permissions;
+    private List<SysPermissionPO> permissions;
 }
