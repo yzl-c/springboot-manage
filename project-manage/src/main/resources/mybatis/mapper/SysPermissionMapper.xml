@@ -36,18 +36,18 @@
         </if>
     </select>
 
-    <!--根据角色code查询权限-->
-    <select id="getPermissionsByRoleCode" parameterType="java.lang.String" resultType="SysPermissionPO">
+    <!--根据角色id查询权限-->
+    <select id="getPermissionsByRoleId" parameterType="java.lang.Long" resultType="SysPermissionPO">
         SELECT p.id, p.code, p.name, p.parent_id, p.level
         FROM T_SYS_PERMISSION p
         LEFT JOIN T_SYS_ROLE_PERMISSION rp
-        ON p.code = rp.permission_code
-        WHERE rp.role_code = #{roleCode}
+        ON p.id = rp.permission_id
+        WHERE rp.role_id = #{roleId}
         AND p.deleted = 0
     </select>
 
     <!--根据id查询权限-->
-    <select id="getUserById" parameterType="java.lang.Long" resultType="SysPermissionPO">
+    <select id="getPermissionById" parameterType="java.lang.Long" resultType="SysPermissionPO">
         SELECT id, code, name
         FROM T_SYS_PERMISSION
         WHERE id = #{id}

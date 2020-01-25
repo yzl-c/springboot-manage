@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface SysPermissionService {
     /**
-     * 根据角色code查询权限
-     * @param roleCode
+     * 根据角色id查询权限
+     * @param id
      * @return
      */
-    List<SysPermissionPO> getPermissionsByRoleCode(String roleCode);
+    List<SysPermissionPO> getPermissionsByRoleId(Long id);
 
     /**
      * 获取所有权限列表
@@ -23,6 +23,12 @@ public interface SysPermissionService {
      * @return
      */
     List<SysPermissionPO> getPermissionsList(SysPermissionPO sysPermission, Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取权限列表（树结构）
+     * @return
+     */
+    List<SysPermissionPO> getPermissionsTree();
 
     /**
      * 获取查询结果总数
@@ -55,4 +61,20 @@ public interface SysPermissionService {
      * @param id
      */
     void logicDeleteById(Long id);
+
+    /**
+     * 构建权限树
+     * @param allPermissions
+     * @return
+     */
+    List<SysPermissionPO> buildPermissionTree(List<SysPermissionPO> allPermissions);
+
+    /**
+     * 获取子权限
+     * @param id 父权限id
+     * @param allPermissions 所有权限列表
+     * @return 每个父权限下，所有子权限列表
+     */
+    List<SysPermissionPO> getSubPermissions(Long id, List<SysPermissionPO> allPermissions);
+
 }

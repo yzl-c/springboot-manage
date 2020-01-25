@@ -12,7 +12,7 @@ import java.util.List;
 public interface SysRoleService {
     /**
      * 获取查询结果总数
-     * @param sysPermission
+     * @param sysRolePO
      * @return
      */
     long countTotal(SysRolePO sysRolePO);
@@ -32,4 +32,29 @@ public interface SysRoleService {
      * @return
      */
     List<SysRolePO> getRoleList(SysRolePO sysRole, Integer pageNum, Integer pageSize);
+
+    /**
+     * 执行添加操作
+     * @param sysRole
+     */
+    void create(SysRolePO sysRole);
+
+    /**
+     * 执行更新操作
+     * @param sysRole
+     */
+    void update(SysRolePO sysRole);
+
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    SysRolePO getOneById(Long id);
+
+    /**
+     * 根据id逻辑删除
+     * @param id
+     */
+    void logicDeleteById(Long id);
 }

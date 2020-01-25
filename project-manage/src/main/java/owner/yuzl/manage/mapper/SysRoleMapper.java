@@ -17,4 +17,12 @@ public interface SysRoleMapper {
     List<SysRolePO> getRolesList(Map param);
 
     Long countTotal(Map param);
+
+    void insert(SysRolePO sysRole);
+
+    void update(SysRolePO sysRole);
+
+    void logicDeleteById(Long id);
+
+    SysRolePO getRoleById(Long id);
 }

@@ -35,6 +35,17 @@ public class SysPermissionController {
     }
 
     /**
+     * 查询权限列表（树结构）
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/getAllPermissionsTree", method = RequestMethod.GET)
+    public Result getAllPermissionsTree() {
+        List<SysPermissionPO> dataList = sysPermissionService.getPermissionsTree();
+        return ResultFactory.buildSuccessResult(dataList, "获取权限列表数据成功");
+    }
+
+    /**
      * 获取权限信息
      * @param id
      * @return 权限信息

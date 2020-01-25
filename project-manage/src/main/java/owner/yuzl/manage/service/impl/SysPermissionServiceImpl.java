@@ -7,6 +7,7 @@ import owner.yuzl.manage.entity.po.SysPermissionPO;
 import owner.yuzl.manage.mapper.SysPermissionMapper;
 import owner.yuzl.manage.service.SysPermissionService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -22,14 +23,13 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     SysPermissionMapper sysPermissionMapper;
 
     /**
-     * 根据角色code查询权限
-     * @param roleCode
+     * 根据角色id查询权限
+     * @param roleId
      * @return
      */
-    @
-    Override
-    public List<SysPermissionPO> getPermissionsByRoleCode(String roleCode) {
-        return sysPermissionMapper.getPermissionsByRoleCode(roleCode);
+    @Override
+    public List<SysPermissionPO> getPermissionsByRoleId(Long roleId) {
+        return sysPermissionMapper.getPermissionsByRoleId(roleId);
     }
 
     /**
@@ -51,6 +51,17 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         param.put("beginIndex", (pageNum - 1) * pageSize );
         param.put("pageSize", pageSize);
         return sysPermissionMapper.getPermissions(param);
+    }
+
+    /**
+     * 获取权限列表（树结构）
+     * @return
+     */
+    @Override
+    public List<SysPermissionPO> getPermissionsTree() {
+        List<SysPermissionPO> allPermissions = sysPermissionMapper.getPermissions(null);
+        List<SysPermissionPO> dataList = buildPermissionTree(allPermissions);
+        return dataList;
     }
 
     /**
@@ -108,5 +119,53 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     @Override
     public void logicDeleteById(Long id) {
         sysPermissionMapper.logicDeleteById(id);
+    }
+
+    /**
+     * 构建权限树
+     * @param allPermissions
+     * @return
+     */
+    public List<SysPermissionPO> buildPermissionTree(List<SysPermissionPO> allPermissions) {
+        // 构建权限树
+        List<SysPermissionPO> rootPermissions = new ArrayList<>();
+        // 首先添加一级权限
+        for (SysPermissionPO permission : allPermissions) {
+            if(permission.getParentId() == 0){
+                rootPermissions.add(permission);
+            }
+        }
+        // 设置子权限
+        for (SysPermissionPO permission : rootPermissions) {
+            List<SysPermissionPO> subPermissions = getSubPermissions(permission.getId(), allPermissions);
+            permission.setSubPermissions(subPermissions);
+        }
+        return rootPermissions;
+    }
+
+    /**
+     * 获取子权限
+     * @param id 父权限id
+     * @param allPermissions 所有权限列表
+     * @return 每个父权限下，所有子权限列表
+     */
+    public List<SysPermissionPO> getSubPermissions(Long id, List<SysPermissionPO> allPermissions){
+        //子菜单
+        List<SysPermissionPO> subPermissionList = new ArrayList<>();
+        for (SysPermissionPO permission : allPermissions) {
+            // 遍历所有权限，将所有权限的父id与传过来的赋权限的id比较。相等说明：为该父节点的子节点。
+            if(permission.getParentId().equals(id)){
+                subPermissionList.add(permission);
+            }
+        }
+        //递归
+        for (SysPermissionPO permission : subPermissionList) {
+            permission.setSubPermissions(getSubPermissions(permission.getId(), allPermissions));
+        }
+        //如果权限下没有子权限，返回一个空List（递归退出）
+        if(subPermissionList.size() == 0){
+            return new ArrayList<>();
+        }
+        return subPermissionList;
     }
 }

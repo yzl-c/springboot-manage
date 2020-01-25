@@ -11,7 +11,7 @@ import java.util.Map;
  * @Description：
  */
 public interface SysPermissionMapper {
-    List<SysPermissionPO> getPermissionsByRoleCode(String roleCode);
+    List<SysPermissionPO> getPermissionsByRoleId(Long roleId);
 
     List<SysPermissionPO> getPermissions(Map param);
 

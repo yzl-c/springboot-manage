@@ -10,6 +10,7 @@ import owner.yuzl.manage.service.SysPermissionService;
 import owner.yuzl.manage.service.SysRoleService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public SysRolePO getRoleByUserAccount(String userAccount) {
         SysRolePO role = sysRoleMapper.getRoleByUserAccount(userAccount);
-        List<SysPermissionPO> auths = sysPermissionService.getPermissionsByRoleCode(role.getCode());
+        List<SysPermissionPO> auths = sysPermissionService.getPermissionsByRoleId(role.getId());
         role.setPermissions(auths);
         return role;
     }
@@ -73,51 +74,47 @@ public class SysRoleServiceImpl implements SysRoleService {
         List<SysRolePO> roles = sysRoleMapper.getRolesList(param);
         for (SysRolePO role : roles) {
             List<SysPermissionPO> allPermissions = role.getPermissions();
-            role.setPermissions(buildPermissionTree(allPermissions));
+            role.setPermissions(sysPermissionService.buildPermissionTree(allPermissions));
         }
         return roles;
     }
 
-    public List<SysPermissionPO> buildPermissionTree(List<SysPermissionPO> allPermissions) {
-        // 构建权限树
-        List<SysPermissionPO> rootPermissions = new ArrayList<>();
-        // 首先添加一级权限
-        for (SysPermissionPO permission : allPermissions) {
-            if(permission.getParentId() == 0){
-                rootPermissions.add(permission);
-            }
-        }
-        // 设置子权限
-        for (SysPermissionPO permission : rootPermissions) {
-            List<SysPermissionPO> subPermissions = getSubPermissions(permission.getId(), allPermissions);
-            permission.setSubPermissions(subPermissions);
-        }
-        return rootPermissions;
+    /**
+     * 执行添加操作
+     * @param sysRole
+     */
+    @Override
+    public void create(SysRolePO sysRole) {
+        sysRole.setCreateTime(new Date());
+        sysRoleMapper.insert(sysRole);
     }
 
     /**
-     * 获取子权限
-     * @param id 父权限id
-     * @param allPermissions 所有权限列表
-     * @return 每个父权限下，所有子权限列表
+     * 执行更新操作
+     * @param sysRole
      */
-    public List<SysPermissionPO> getSubPermissions(Long id, List<SysPermissionPO> allPermissions){
-        //子菜单
-        List<SysPermissionPO> subPermissionList = new ArrayList<>();
-        for (SysPermissionPO permission : allPermissions) {
-            // 遍历所有权限，将所有权限的父id与传过来的赋权限的id比较。相等说明：为该父节点的子节点。
-            if(permission.getParentId().equals(id)){
-                subPermissionList.add(permission);
-            }
-        }
-        //递归
-        for (SysPermissionPO permission : subPermissionList) {
-            permission.setSubPermissions(getSubPermissions(permission.getId(), allPermissions));
-        }
-        //如果权限下没有子权限，返回一个空List（递归退出）
-        if(subPermissionList.size() == 0){
-            return new ArrayList<>();
-        }
-        return subPermissionList;
+    @Override
+    public void update(SysRolePO sysRole) {
+        sysRole.setModifyTime(new Date());
+        sysRoleMapper.update(sysRole);
+    }
+
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    @Override
+    public SysRolePO getOneById(Long id) {
+        return sysRoleMapper.getRoleById(id);
+    }
+
+    /**
+     * 根据id逻辑删除
+     * @param id
+     */
+    @Override
+    public void logicDeleteById(Long id) {
+        sysRoleMapper.logicDeleteById(id);
     }
 }

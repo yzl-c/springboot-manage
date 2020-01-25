@@ -8,4 +8,5 @@ package owner.yuzl.manage.mapper;
  */
 public interface SysRolePermissionMapper {
 
+    void deleteRelativeById(Long roleId, Long permissionId);
 }
