@@ -1,18 +1,15 @@
 package owner.yuzl.manage.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import owner.yuzl.manage.common.result.Result;
 import owner.yuzl.manage.common.result.ResultFactory;
 import owner.yuzl.manage.entity.po.SysPermissionPO;
-import owner.yuzl.manage.entity.po.SysRolePO;
 import owner.yuzl.manage.service.SysPermissionService;
 import owner.yuzl.manage.service.SysRolePermissionService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author：yzl_c
@@ -32,5 +29,13 @@ public class SysRolePermissionController {
     public Result deleteRelative(@PathVariable("roleId") Long roleId, @PathVariable("permissionId") Long permissionId) {
         List<SysPermissionPO> dataList = sysRolePermissionService.deleteRelativeById(roleId, permissionId);
         return ResultFactory.buildSuccessResult(dataList, "解除关系成功");
+    }
+
+    @RequestMapping(value = "/setRelative", method = RequestMethod.POST)
+    public Result setRelative(@RequestBody Map<String, Object> param) {
+        Integer roleId = (Integer) param.get("roleId");
+        String permissionIds = (String) param.get("permissionIds");
+        sysRolePermissionService.setRelative(roleId, permissionIds);
+        return ResultFactory.buildSuccessResult(null, "权限设置成功");
     }
 }

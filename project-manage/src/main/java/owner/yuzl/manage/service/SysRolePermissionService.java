@@ -12,4 +12,11 @@ import java.util.List;
  */
 public interface SysRolePermissionService {
     List<SysPermissionPO> deleteRelativeById(Long roleId, Long permissionId);
+
+    /**
+     * 设置角色权限
+     * @param roleId
+     * @param permissionIds
+     */
+    void setRelative(Integer roleId, String permissionIds);
 }
