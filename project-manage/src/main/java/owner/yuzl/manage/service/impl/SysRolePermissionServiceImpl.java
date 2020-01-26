@@ -25,13 +25,13 @@ public class SysRolePermissionServiceImpl implements SysRolePermissionService {
     @Autowired
     SysPermissionService sysPermissionService;
 
-    @Override
-    public List<SysPermissionPO> deleteRelativeById(Long roleId, Long permissionId) {
-        sysRolePermissionMapper.deleteRelativeById(roleId, permissionId);
-        List<SysPermissionPO> list = sysPermissionService.getPermissionsByRoleId(roleId);
-        List<SysPermissionPO> dataList = sysPermissionService.buildPermissionTree(list);
-        return dataList;
-    }
+//    @Override
+//    public List<SysPermissionPO> deleteRelativeById(Long roleId, Long permissionId) {
+//        sysRolePermissionMapper.deleteRelativeById(roleId, permissionId);
+//        List<SysPermissionPO> list = sysPermissionService.getPermissionsByRoleId(roleId);
+//        List<SysPermissionPO> dataList = sysPermissionService.buildPermissionTree(list);
+//        return dataList;
+//    }
 
     /**
      * 设置角色权限

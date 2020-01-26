@@ -21,6 +21,11 @@ public class SysUserRolePO {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userId;
+
+    //    @Column(name = "role_code")
+    private Long roleId;
+
 //    @Column(name = "user_account")
     private String userAccount;
 

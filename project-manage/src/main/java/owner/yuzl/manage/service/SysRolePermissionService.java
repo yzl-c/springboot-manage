@@ -11,7 +11,7 @@ import java.util.List;
  * @Description：
  */
 public interface SysRolePermissionService {
-    List<SysPermissionPO> deleteRelativeById(Long roleId, Long permissionId);
+//    List<SysPermissionPO> deleteRelativeById(Long roleId, Long permissionId);
 
     /**
      * 设置角色权限

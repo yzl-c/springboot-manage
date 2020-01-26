@@ -51,10 +51,10 @@ public class SysUserController {
      * 跳转主页
      * @return 主页视图
      */
-    @GetMapping(value = "/toIndex")
-    public String toSysUserIndex() {
-        return "manage/sysUser/index";
-    }
+//    @GetMapping(value = "/toIndex")
+//    public String toSysUserIndex() {
+//        return "manage/sysUser/index";
+//    }
 
     /**
      * 跳转更新系统用户
@@ -62,14 +62,14 @@ public class SysUserController {
      * @param model
      * @return 更新视图
      */
-    @GetMapping(value = "/toUpdate")
-    public String toSysUserUpdate(Long id, Model model) {
-        if (!StringUtils.isEmpty(id)) {
-            SysUserPO sysUserPO = sysUserService.getOneById(id);
-            model.addAttribute("sysUser", sysUserPO);
-        }
-        return "manage/sysUser/update";
-    }
+//    @GetMapping(value = "/toUpdate")
+//    public String toSysUserUpdate(Long id, Model model) {
+//        if (!StringUtils.isEmpty(id)) {
+//            SysUserPO sysUserPO = sysUserService.getOneById(id);
+//            model.addAttribute("sysUser", sysUserPO);
+//        }
+//        return "manage/sysUser/update";
+//    }
 
     /**
      * 获取用户信息

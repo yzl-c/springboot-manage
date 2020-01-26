@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface SysRolePermissionMapper {
 
-    void deleteRelativeById(Long roleId, Long permissionId);
+//    void deleteRelativeById(Long roleId, Long permissionId);
 
     void deleteRelativeByRoleId(Integer roleId);
 

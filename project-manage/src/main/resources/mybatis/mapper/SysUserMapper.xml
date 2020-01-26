@@ -8,7 +8,7 @@
         <result property="account" column="account"></result>
         <result property="name" column="name"></result>
         <result property="deleted" column="deleted"></result>
-        <association property="role" column="account" select="owner.yuzl.manage.mapper.SysRoleMapper.getRoleByUserAccount"></association>
+        <association property="role" column="id" select="owner.yuzl.manage.mapper.SysRoleMapper.getRoleByUserId"></association>
     </resultMap>
 
     <!--列表查询-->

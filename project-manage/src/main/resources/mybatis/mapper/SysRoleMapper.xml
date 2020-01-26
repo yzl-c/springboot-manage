@@ -27,12 +27,12 @@
     </select>
 
     <!--根据账号查询角色-->
-    <select id="getRoleByUserAccount" parameterType="java.lang.String" resultMap="rolePermissionMap">
+    <select id="getRoleByUserId" parameterType="java.lang.Long" resultMap="rolePermissionMap">
         SELECT r.id, r.code, r.name
         FROM T_SYS_ROLE r
         LEFT JOIN T_SYS_USER_ROLE ur
         ON r.id = ur.role_id
-        WHERE ur.user_account = #{userAccount}
+        WHERE ur.user_id = #{userId}
     </select>
 
     <!--查询角色列表-->

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="owner.yuzl.manage.mapper.SysUserRoleMapper">
+    <!--  删除当前用户对应的关系  -->
+    <delete id="deleteRelativeByUserId" parameterType="SysUserRolePO">
+        DELETE FROM T_SYS_USER_ROLE
+        WHERE user_id = #{userId}
+    </delete>
+
+<!-- 添加用户角色关系 -->
+    <insert id="createRelative">
+        INSERT INTO T_SYS_USER_ROLE
+        (id, user_id, role_id)
+        VALUES (null, #{userId}, #{roleId})
+    </insert>
+</mapper>
