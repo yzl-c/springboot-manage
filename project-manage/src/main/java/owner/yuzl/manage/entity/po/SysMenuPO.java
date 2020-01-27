@@ -1,10 +1,6 @@
 package owner.yuzl.manage.entity.po;
 
 import lombok.Data;
-//import org.hibernate.annotations.DynamicInsert;
-//import org.hibernate.annotations.DynamicUpdate;
-//
-//import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +18,8 @@ public class SysMenuPO {
     private String name;
 
     private Long parentId;
+
+    private Integer level;
 
     private Integer createUser;
 

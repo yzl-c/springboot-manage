@@ -5,10 +5,76 @@
 
     <!--获取所有菜单-->
     <select id="getAllMenus" resultType="SysMenuPO">
-        SELECT id, code, name, parent_id
+        SELECT id, code, name, parent_id, level
         FROM T_SYS_MENU
         WHERE deleted = 0
     </select>
+    
+    <!--总量查询-->
+    <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM T_SYS_MENU
+        <where>
+            <if test="code != null and code != ''">
+                AND INSTR(code, #{code}) > 0
+            </if>
+            <if test="name != null and name != ''">
+                AND INSTR(name, #{name}) > 0
+            </if>
+            AND parent_id = 0
+            AND deleted = 0
+        </where>
+    </select>
 
+    <!--查询菜单列表-->
+    <select id="getMenus" resultType="SysMenuPO">
+        SELECT id, code, name, parent_id, level
+        FROM T_SYS_MENU
+        <where>
+            <if test="code != null and code != ''">
+                AND INSTR(code, #{code}) > 0
+            </if>
+            <if test="name != null and name != ''">
+                AND INSTR(name, #{name}) > 0
+            </if>
+            AND deleted = 0
+        </where>
+    </select>
 
+    <!--根据id查询菜单-->
+    <select id="getMenuById" parameterType="java.lang.Long" resultType="SysMenuPO">
+        SELECT id, code, name, parent_id, level
+        FROM T_SYS_MENU
+        WHERE id = #{id}
+    </select>
+
+    <!--插入-->
+    <insert id="insert" parameterType="SysMenuPO">
+        INSERT INTO T_SYS_MENU
+        (id, code, name, parent_id, level, create_time)
+        VALUES
+        (null, #{code}, #{name}, #{parentId}, #{level}, #{createTime})
+    </insert>
+
+    <!--更新-->
+    <update id="update" parameterType="SysMenuPO">
+        UPDATE T_SYS_MENU
+        SET code = #{code}, name = #{name}, modify_time = #{modifyTime}
+        WHERE id = #{id}
+    </update>
+
+    <!--根据id逻辑删除-->
+    <update id="logicDeleteById">
+        UPDATE T_SYS_MENU
+        SET deleted = 1
+        WHERE id = #{id}
+    </update>
+
+    <!--根据父菜单逻辑删除-->
+    <update id="logicDeleteByParentId">
+        UPDATE T_SYS_MENU
+        SET deleted = 1
+        WHERE parent_id = #{parentId}
+        AND deleted = 0
+    </update>
 </mapper>

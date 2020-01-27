@@ -2,12 +2,16 @@ package owner.yuzl.manage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import owner.yuzl.manage.common.util.MapUtil;
 import owner.yuzl.manage.entity.po.SysMenuPO;
 import owner.yuzl.manage.mapper.SysMenuMapper;
 import owner.yuzl.manage.service.SysMenuService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author：yzl_c
@@ -15,17 +19,106 @@ import java.util.List;
  * @Description：
  */
 @Service
+@Transactional
 public class SysMenuServiceImpl implements SysMenuService {
     @Autowired
     SysMenuMapper sysMenuMapper;
 
     /**
+     * 获取菜单列表
+     * @param sysMenu
+     * @return
+     */
+    @Override
+    public List<SysMenuPO> getMenusList(SysMenuPO sysMenu) {
+        Map param = null;
+        try {
+            param = MapUtil.objectToMap(sysMenu);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            System.out.println("Object 转换 Map 异常！");
+        }
+        return this.bulidAsideMenu(sysMenuMapper.getMenus(param));
+    }
+
+    /**
+     * 获取所有左侧菜单列表
+     * @return
+     */
+    @Override
+    public List<SysMenuPO> getAllMenus() {
+        List<SysMenuPO> menus = sysMenuMapper.getAllMenus();
+        return this.bulidAsideMenu(menus);
+    }
+
+    /**
+     * 获取查询结果总数
+     * @param sysMenu
+     * @return
+     */
+    @Override
+    public long countTotal(SysMenuPO sysMenu) {
+        Map param = null;
+        try {
+            param = MapUtil.objectToMap(sysMenu);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            System.out.println("Object 转换 Map 异常！");
+        }
+        Long countTotal = sysMenuMapper.countTotal(param);
+        return countTotal == null ? 0 : countTotal;
+    }
+
+    /**
+     * 执行添加操作
+     * @param sysMenu
+     */
+    @Override
+    public void create(SysMenuPO sysMenu) {
+        sysMenu.setCreateTime(new Date());
+        sysMenuMapper.insert(sysMenu);
+    }
+
+    /**
+     * 执行更新操作
+     * @param sysMenu
+     */
+    @Override
+    public void update(SysMenuPO sysMenu) {
+        sysMenu.setModifyTime(new Date());
+        sysMenuMapper.update(sysMenu);
+    }
+
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    @Override
+    public SysMenuPO getOneById(Long id) {
+        return sysMenuMapper.getMenuById(id);
+    }
+
+    /**
+     * 根据id逻辑删除
+     * @param id
+     */
+    @Override
+    public void logicDeleteById(Long id) {
+        sysMenuMapper.logicDeleteById(id);
+        SysMenuPO deletedMenu = this.getOneById(id);
+        if (deletedMenu.getParentId() == 0) {
+            sysMenuMapper.logicDeleteByParentId(id);
+        }
+    }
+    
+    /**
      * 构建左侧菜单栏
      * @return 菜单列表
      */
     @Override
-    public List<SysMenuPO> bulidAsideMenu() {
-        List<SysMenuPO> allMenus = sysMenuMapper.getAllMenus();
+    public List<SysMenuPO> bulidAsideMenu(List<SysMenuPO> menus) {
+        List<SysMenuPO> allMenus = menus;
 
         // 获取一级菜单
         List<SysMenuPO> rootMenus = new ArrayList<>();
