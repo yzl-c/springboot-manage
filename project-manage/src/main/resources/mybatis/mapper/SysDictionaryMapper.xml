@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="owner.yuzl.manage.mapper.SysDictionaryMapper">
+
+    <!--总量查询-->
+    <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM T_SYS_DICTIONARY
+        <where>
+            <if test="code != null and code != ''">
+                AND INSTR(code, #{code}) > 0
+            </if>
+            <if test="name != null and name != ''">
+                AND INSTR(name, #{name}) > 0
+            </if>
+            AND deleted = 0
+        </where>
+    </select>
+
+    <!--查询字典列表-->
+    <select id="getDictionarys" resultType="SysDictionaryPO">
+        SELECT id, code, name, parent_id, level
+        FROM T_SYS_DICTIONARY
+        <where>
+            <if test="code != null and code != ''">
+                AND INSTR(code, #{code}) > 0
+            </if>
+            <if test="name != null and name != ''">
+                AND INSTR(name, #{name}) > 0
+            </if>
+            AND deleted = 0
+        </where>
+        <if test="beginIndex != null and pageSize != null">
+            LIMIT #{beginIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <!--根据类型id查询字典-->
+    <select id="getDictionarysByTypeId" parameterType="java.lang.Long" resultType="SysDictionaryPO">
+        SELECT d.id, d.code, d.name, d.type_id
+        FROM T_SYS_DICTIONARY d
+        WHERE d.type_id = #{typeId}
+        AND d.deleted = 0
+    </select>
+
+    <!--根据id查询字典-->
+    <select id="getDictionaryById" parameterType="java.lang.Long" resultType="SysDictionaryPO">
+        SELECT id, code, name, type_id
+        FROM T_SYS_DICTIONARY
+        WHERE id = #{id}
+    </select>
+
+    <!--插入-->
+    <insert id="insert" parameterType="SysDictionaryPO">
+        INSERT INTO T_SYS_DICTIONARY
+        (id, type_id, code, name, create_time)
+        VALUES
+        (null, #{typeId}, #{code}, #{name}, #{createTime})
+    </insert>
+
+    <!--更新-->
+    <update id="update" parameterType="SysDictionaryPO">
+        UPDATE T_SYS_DICTIONARY
+        SET code = #{code}, name = #{name}, modify_time = #{modifyTime}
+        WHERE id = #{id}
+    </update>
+
+    <!--根据id逻辑删除-->
+    <update id="logicDeleteById">
+        UPDATE T_SYS_DICTIONARY
+        SET deleted = 1
+        WHERE id = #{id}
+    </update>
+
+    <!--根据类型逻辑删除-->
+    <update id="logicDeleteByTypeId">
+        UPDATE T_SYS_DICTIONARY
+        SET deleted = 1
+        WHERE type_id = #{typeId}
+    </update>
+</mapper>

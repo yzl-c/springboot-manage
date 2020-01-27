@@ -1,27 +1,22 @@
 package owner.yuzl.manage.entity.po;
 
 import lombok.Data;
-//import org.hibernate.annotations.DynamicInsert;
-//import org.hibernate.annotations.DynamicUpdate;
-//
-//import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
 /**
  * @Author：yzl_c
- * @Date：2020/1/2 16:28
- * @Description：菜单实体类
+ * @Date：2020/1/27 10:25
+ * @Description：数据字典类型
  */
 @Data
-public class SysMenuPO {
+public class SysDictypePO {
     private Long id;
 
     private String code;
 
     private String name;
-
-    private Long parentId;
 
     private Integer createUser;
 
@@ -33,5 +28,5 @@ public class SysMenuPO {
 
     private Integer deleted;
 
-    private List<SysMenuPO> subMenus;
+    private List<SysDictionaryPO> dictionarys;
 }

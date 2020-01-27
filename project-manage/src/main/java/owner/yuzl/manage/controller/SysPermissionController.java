@@ -53,10 +53,10 @@ public class SysPermissionController {
     @RequestMapping(value = "/getPermissionById/{id}", method = RequestMethod.GET)
     public Result getUserById(@PathVariable(value = "id") Long id) {
         if (StringUtils.isEmpty(id)) {
-            return ResultFactory.buildFailResult("获取用户信息失败");
+            return ResultFactory.buildFailResult("获取权限信息失败");
         }
         SysPermissionPO sysPermission = sysPermissionService.getOneById(id);
-        return ResultFactory.buildSuccessResult(sysPermission, "获取用户信息成功");
+        return ResultFactory.buildSuccessResult(sysPermission, "获取权限信息成功");
     }
 
     /**
@@ -67,7 +67,7 @@ public class SysPermissionController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Result create(@RequestBody SysPermissionPO sysPermission) {
         sysPermissionService.create(sysPermission);
-        return ResultFactory.buildSuccessResult(null, "添加用户成功");
+        return ResultFactory.buildSuccessResult(null, "添加权限成功");
     }
 
     /**

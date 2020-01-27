@@ -109,7 +109,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
      */
     @Override
     public SysPermissionPO getOneById(Long id) {
-        return sysPermissionMapper.getUserById(id);
+        return sysPermissionMapper.getPermissionById(id);
     }
 
     /**

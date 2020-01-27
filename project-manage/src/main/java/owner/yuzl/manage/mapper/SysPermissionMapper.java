@@ -23,5 +23,5 @@ public interface SysPermissionMapper {
 
     void logicDeleteById(Long id);
 
-    SysPermissionPO getUserById(Long id);
+    SysPermissionPO getPermissionById(Long id);
 }
