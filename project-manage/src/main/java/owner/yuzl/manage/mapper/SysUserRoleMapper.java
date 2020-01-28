@@ -12,7 +12,9 @@ import java.util.List;
  */
 public interface SysUserRoleMapper {
 
-    void deleteRelativeByUserId(SysUserRolePO sysUserRole);
+    void deleteRelativeByUserId(Long userId);
 
     void createRelative(SysUserRolePO sysUserRole);
+
+    void deleteRelativeByRoleId(Long roleId);
 }

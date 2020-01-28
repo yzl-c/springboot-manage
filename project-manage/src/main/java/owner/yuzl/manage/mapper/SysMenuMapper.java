@@ -26,4 +26,6 @@ public interface SysMenuMapper {
     SysMenuPO getMenuById(Long id);
 
     void logicDeleteByParentId(Long parentId);
+
+    List<SysMenuPO> getMenusByParentId(Long ParentId);
 }

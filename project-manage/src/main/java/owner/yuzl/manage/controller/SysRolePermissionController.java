@@ -32,7 +32,7 @@ public class SysRolePermissionController {
     public Result setRelative(@RequestBody Map<String, Object> param) {
         Integer roleId = (Integer) param.get("roleId");
         String permissionIds = (String) param.get("permissionIds");
-        sysRolePermissionService.setRelative(roleId, permissionIds);
+        sysRolePermissionService.setRelative(roleId.longValue(), permissionIds);
         return ResultFactory.buildSuccessResult(null, "权限设置成功");
     }
 }

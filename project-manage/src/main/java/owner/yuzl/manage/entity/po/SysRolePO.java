@@ -43,4 +43,6 @@ public class SysRolePO {
 
 //    @Transient
     private List<SysPermissionPO> permissions;
+
+    private List<SysMenuPO> menus;
 }

@@ -18,5 +18,5 @@ public interface SysRolePermissionService {
      * @param roleId
      * @param permissionIds
      */
-    void setRelative(Integer roleId, String permissionIds);
+    void setRelative(Long roleId, String permissionIds);
 }

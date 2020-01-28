@@ -24,7 +24,7 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
      */
     @Override
     public void setRelative(SysUserRolePO sysUserRole) {
-        sysUserRoleMapper.deleteRelativeByUserId(sysUserRole);
+        sysUserRoleMapper.deleteRelativeByUserId(sysUserRole.getUserId());
         sysUserRoleMapper.createRelative(sysUserRole);
     }
 }

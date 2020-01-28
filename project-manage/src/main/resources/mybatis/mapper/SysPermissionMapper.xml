@@ -48,17 +48,25 @@
 
     <!--根据id查询权限-->
     <select id="getPermissionById" parameterType="java.lang.Long" resultType="SysPermissionPO">
-        SELECT id, code, name
+        SELECT id, code, name, parent_id, level
         FROM T_SYS_PERMISSION
         WHERE id = #{id}
+    </select>
+
+    <!--根据等级查询权限-->
+    <select id="getPermissionsByLevel" parameterType="java.lang.Integer" resultType="SysPermissionPO">
+        SELECT id, code, name, parent_id, level
+        FROM T_SYS_PERMISSION
+        WHERE level = #{level}
+        AND deleted = 0
     </select>
 
     <!--插入-->
     <insert id="insert" parameterType="SysPermissionPO">
         INSERT INTO T_SYS_PERMISSION
-        (id, code, name, create_time)
+        (id, code, name, parent_id, level, create_time)
         VALUES
-        (null, #{code}, #{name}, #{createTime})
+        (null, #{code}, #{name}, #{parentId}, #{level}, #{createTime})
     </insert>
 
     <!--更新-->

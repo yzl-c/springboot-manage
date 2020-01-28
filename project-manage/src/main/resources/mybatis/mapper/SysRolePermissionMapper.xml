@@ -9,10 +9,16 @@
 <!--        AND permission_id = #{permissionId}-->
 <!--    </delete>-->
 
-<!--  删除当前角色对应的关系  -->
+<!--  根据角色删除当前角色权限对应的关系  -->
     <delete id="deleteRelativeByRoleId" >
         DELETE FROM T_SYS_ROLE_PERMISSION
         WHERE role_id = #{roleId}
+    </delete>
+
+    <!--  根据权限删除当前角色权限对应的关系  -->
+    <delete id="deleteRelativeByPermissionId" >
+        DELETE FROM T_SYS_ROLE_PERMISSION
+        WHERE permission_id = #{permissionId}
     </delete>
 
 <!-- 添加角色权限关系 -->

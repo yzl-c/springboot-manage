@@ -46,6 +46,17 @@ public class SysPermissionController {
     }
 
     /**
+     * 等级查询权限列表
+     * @param level
+     * @return
+     */
+    @RequestMapping(value = "/getPermissionsByLevel/{level}", method = RequestMethod.GET)
+    public Result getPermissionsByLevel(@PathVariable("level") Integer level) {
+        List<SysPermissionPO> dataList = sysPermissionService.getPermissionsByLevel(level);
+        return ResultFactory.buildSuccessResult(dataList, "获取权限列表数据成功");
+    }
+
+    /**
      * 获取权限信息
      * @param id
      * @return 权限信息

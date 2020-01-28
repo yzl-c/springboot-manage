@@ -12,7 +12,9 @@ public interface SysRolePermissionMapper {
 
 //    void deleteRelativeById(Long roleId, Long permissionId);
 
-    void deleteRelativeByRoleId(Integer roleId);
+    void deleteRelativeByRoleId(Long roleId);
 
-    void createRelative(Integer roleId, List<String> permissionIds);
+    void createRelative(Long roleId, List<String> permissionIds);
+
+    void deleteRelativeByPermissionId(Long permissionId);
 }

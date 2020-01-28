@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import owner.yuzl.manage.common.util.MapUtil;
 import owner.yuzl.manage.entity.po.SysMenuPO;
 import owner.yuzl.manage.mapper.SysMenuMapper;
+import owner.yuzl.manage.mapper.SysRoleMenuMapper;
 import owner.yuzl.manage.service.SysMenuService;
 
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ import java.util.Map;
 public class SysMenuServiceImpl implements SysMenuService {
     @Autowired
     SysMenuMapper sysMenuMapper;
+
+    @Autowired
+    SysRoleMenuMapper sysRoleMenuMapper;
 
     /**
      * 获取菜单列表
@@ -105,11 +109,22 @@ public class SysMenuServiceImpl implements SysMenuService {
      */
     @Override
     public void logicDeleteById(Long id) {
-        sysMenuMapper.logicDeleteById(id);
         SysMenuPO deletedMenu = this.getOneById(id);
+        sysMenuMapper.logicDeleteById(id);
+        List<Long> menuIds = new ArrayList<>();
+        menuIds.add(id);
         if (deletedMenu.getParentId() == 0) {
+            List<SysMenuPO> list = new ArrayList<>();
+            list = sysMenuMapper.getMenusByParentId(id);
+            if (list.size() > 0) {
+                for (SysMenuPO menu : list) {
+                    menuIds.add(menu.getId());
+                }
+            }
             sysMenuMapper.logicDeleteByParentId(id);
         }
+        // 删除角色菜单关系
+        sysRoleMenuMapper.deleteRelativeByMenuIds(menuIds);
     }
     
     /**

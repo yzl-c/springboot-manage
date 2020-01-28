@@ -7,10 +7,12 @@ import owner.yuzl.manage.common.util.MapUtil;
 import owner.yuzl.manage.entity.po.SysPermissionPO;
 import owner.yuzl.manage.entity.po.SysRolePO;
 import owner.yuzl.manage.mapper.SysRoleMapper;
+import owner.yuzl.manage.mapper.SysRoleMenuMapper;
+import owner.yuzl.manage.mapper.SysRolePermissionMapper;
+import owner.yuzl.manage.mapper.SysUserRoleMapper;
 import owner.yuzl.manage.service.SysPermissionService;
 import owner.yuzl.manage.service.SysRoleService;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,15 @@ import java.util.Map;
 public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    SysUserRoleMapper sysUserRoleMapper;
+
+    @Autowired
+    SysRolePermissionMapper sysRolePermissionMapper;
+
+    @Autowired
+    SysRoleMenuMapper sysRoleMenuMapper;
 
     @Autowired
     SysPermissionService sysPermissionService;
@@ -119,5 +130,11 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void logicDeleteById(Long id) {
         sysRoleMapper.logicDeleteById(id);
+        // 删除用户角色关系
+        sysUserRoleMapper.deleteRelativeByRoleId(id);
+        // 删除角色权限关系
+        sysRolePermissionMapper.deleteRelativeByRoleId(id);
+        // 删除角色菜单关系
+        sysRoleMenuMapper.deleteRelativeByRoleId(id);
     }
 }

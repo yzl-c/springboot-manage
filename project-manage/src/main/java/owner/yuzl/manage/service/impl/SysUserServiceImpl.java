@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import owner.yuzl.manage.common.util.MapUtil;
 import owner.yuzl.manage.entity.base.BasePage;
-import owner.yuzl.manage.entity.po.SysRolePO;
 import owner.yuzl.manage.entity.po.SysUserPO;
 import owner.yuzl.manage.mapper.SysUserMapper;
+import owner.yuzl.manage.mapper.SysUserRoleMapper;
 import owner.yuzl.manage.service.SysRoleService;
 import owner.yuzl.manage.service.SysUserService;
 
@@ -27,6 +26,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     SysUserMapper sysUserMapper;
+
+    @Autowired
+    SysUserRoleMapper sysUserRoleMapper;
 
     @Autowired
     SysRoleService sysRoleService;
@@ -98,6 +100,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void logicDeleteById(Long id) {
         sysUserMapper.logicDeleteById(id);
+        sysUserRoleMapper.deleteRelativeByUserId(id);
     }
 
     /**

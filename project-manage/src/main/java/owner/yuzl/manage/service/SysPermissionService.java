@@ -11,6 +11,13 @@ import java.util.List;
  */
 public interface SysPermissionService {
     /**
+     * 根据等级查询权限
+     * @param level
+     * @return
+     */
+    List<SysPermissionPO> getPermissionsByLevel(Integer level);
+
+    /**
      * 根据角色id查询权限
      * @param id
      * @return

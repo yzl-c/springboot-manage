@@ -22,7 +22,7 @@ public class SysMenuController {
     SysMenuService sysMenuService;
 
     /**
-     * 获取左侧菜单栏(树结构)
+     * 获取所有菜单(树结构)
      * @return
      */
     @RequestMapping(value = "/getAllMenus", method = RequestMethod.GET)
@@ -32,7 +32,7 @@ public class SysMenuController {
     }
 
     /**
-     * 查询权限列表
+     * 查询菜单列表
      * @param
      * @return
      */

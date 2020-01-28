@@ -9,6 +9,7 @@
         <result property="name" column="name"></result>
         <result property="deleted" column="deleted"></result>
         <collection property="permissions" column="id" select="owner.yuzl.manage.mapper.SysPermissionMapper.getPermissionsByRoleId"></collection>
+        <collection property="menus" column="id" select="owner.yuzl.manage.mapper.SysMenuMapper.getMenusByRoleId"></collection>
     </resultMap>
 
     <!--总量查询-->

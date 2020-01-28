@@ -33,8 +33,7 @@ public class LoginController {
             //获得用户对象
             SysUserPO resultUser = (SysUserPO) subject.getPrincipal();
             HashMap<Object, Object> data = new HashMap<>();
-            data.put("id", resultUser.getId());
-            data.put("account", resultUser.getAccount());
+            data.put("loginUser", resultUser);
             //生成token返回给客户端
             data.put("token", JWTUtil.sign(resultUser));
             return ResultFactory.buildSuccessResult(data, "登录成功");

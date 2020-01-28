@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import owner.yuzl.manage.common.util.MapUtil;
 import owner.yuzl.manage.entity.po.SysPermissionPO;
 import owner.yuzl.manage.mapper.SysPermissionMapper;
+import owner.yuzl.manage.mapper.SysRolePermissionMapper;
 import owner.yuzl.manage.service.SysPermissionService;
 
 import java.util.ArrayList;
@@ -21,6 +22,19 @@ import java.util.Map;
 public class SysPermissionServiceImpl implements SysPermissionService {
     @Autowired
     SysPermissionMapper sysPermissionMapper;
+
+    @Autowired
+    SysRolePermissionMapper sysRolePermissionMapper;
+
+    /**
+     * 根据等级查询权限
+     * @param level
+     * @return
+     */
+    @Override
+    public List<SysPermissionPO> getPermissionsByLevel(Integer level) {
+        return sysPermissionMapper.getPermissionsByLevel(level);
+    }
 
     /**
      * 根据角色id查询权限
@@ -119,6 +133,8 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     @Override
     public void logicDeleteById(Long id) {
         sysPermissionMapper.logicDeleteById(id);
+        // 删除角色权限关系
+        sysRolePermissionMapper.deleteRelativeByPermissionId(id);
     }
 
     /**

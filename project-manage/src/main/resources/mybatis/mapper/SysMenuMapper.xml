@@ -41,11 +41,30 @@
         </where>
     </select>
 
+    <!--根据角色id查询菜单-->
+    <select id="getMenusByRoleId" parameterType="java.lang.Long" resultType="SysMenuPO">
+        SELECT m.id, m.code, m.name, m.parent_id, m.level
+        FROM T_SYS_MENU m
+        LEFT JOIN T_SYS_ROLE_MENU rm
+        ON m.id = rm.menu_id
+        WHERE rm.role_id = #{roleId}
+        AND m.deleted = 0
+    </select>
+
     <!--根据id查询菜单-->
     <select id="getMenuById" parameterType="java.lang.Long" resultType="SysMenuPO">
         SELECT id, code, name, parent_id, level
         FROM T_SYS_MENU
         WHERE id = #{id}
+        AND  deleted = 0
+    </select>
+
+    <!--根据父菜单id查询-->
+    <select id="getMenusByParentId" parameterType="java.lang.Long" resultType="SysMenuPO">
+        SELECT id, code, name, parent_id, level
+        FROM T_SYS_MENU
+        WHERE parent_id = #{parentId}
+        AND deleted = 0
     </select>
 
     <!--插入-->

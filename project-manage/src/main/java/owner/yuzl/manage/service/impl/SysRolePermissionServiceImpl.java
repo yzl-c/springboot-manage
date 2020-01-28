@@ -40,8 +40,8 @@ public class SysRolePermissionServiceImpl implements SysRolePermissionService {
      */
     @Override
     @Transactional
-    public void setRelative(Integer roleId, String permissionIds) {
-        sysRolePermissionMapper.deleteRelativeByRoleId(roleId);
+    public void setRelative(Long roleId, String permissionIds) {
+        sysRolePermissionMapper.deleteRelativeByRoleId(Long.valueOf(roleId));
         List<String> ids = Arrays.asList(permissionIds.split(","));
         sysRolePermissionMapper.createRelative(roleId, ids);
     }
