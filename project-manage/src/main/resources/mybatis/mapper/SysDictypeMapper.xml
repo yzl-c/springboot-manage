@@ -44,6 +44,16 @@
         </if>
     </select>
 
+    <!--code查询字典类型列表-->
+    <select id="getDictypesByCode" resultType="SysDictypePO">
+        SELECT id, code, name
+        FROM T_SYS_DICTYPE
+        WHERE deleted = 0
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+    </select>
+
     <!--根据id查询字典类型-->
     <select id="getDictypeById" parameterType="java.lang.Long" resultType="SysDictypePO">
         SELECT id, code, name

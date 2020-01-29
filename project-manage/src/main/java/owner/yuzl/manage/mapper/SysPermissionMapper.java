@@ -26,4 +26,6 @@ public interface SysPermissionMapper {
     SysPermissionPO getPermissionById(Long id);
 
     List<SysPermissionPO> getPermissionsByLevel(Integer level);
+
+    List<SysPermissionPO> getPermissionsByCode(Map<String, Object> params);
 }

@@ -9,10 +9,7 @@ import owner.yuzl.manage.mapper.SysMenuMapper;
 import owner.yuzl.manage.mapper.SysRoleMenuMapper;
 import owner.yuzl.manage.service.SysMenuService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author：yzl_c
@@ -176,5 +173,17 @@ public class SysMenuServiceImpl implements SysMenuService {
             return new ArrayList<>();
         }
         return subMenuList;
+    }
+
+    /**
+     * 查询code唯一性
+     * @param code
+     * @return
+     */
+    @Override
+    public List<SysMenuPO> checkCodeUnique(String code) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("code", code);
+        return sysMenuMapper.getMenusByCode(params);
     }
 }

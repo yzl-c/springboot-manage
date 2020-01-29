@@ -79,4 +79,14 @@
         SET deleted = 1
         WHERE type_id = #{typeId}
     </update>
+
+    <!--code查询字典类型列表-->
+    <select id="getDictionarysByCode" resultType="SysDictionaryPO">
+        SELECT id, code, name, type_id
+        FROM T_SYS_DICTIONARY
+        WHERE deleted = 0
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+    </select>
 </mapper>

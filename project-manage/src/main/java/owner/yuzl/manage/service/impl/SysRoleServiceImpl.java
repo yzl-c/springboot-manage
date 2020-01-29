@@ -14,6 +14,7 @@ import owner.yuzl.manage.service.SysPermissionService;
 import owner.yuzl.manage.service.SysRoleService;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -136,5 +137,17 @@ public class SysRoleServiceImpl implements SysRoleService {
         sysRolePermissionMapper.deleteRelativeByRoleId(id);
         // 删除角色菜单关系
         sysRoleMenuMapper.deleteRelativeByRoleId(id);
+    }
+
+    /**
+     * 查询code唯一性
+     * @param code
+     * @return
+     */
+    @Override
+    public List<SysRolePO> checkCodeUnique(String code) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("code", code);
+        return sysRoleMapper.getRolesByCode(params);
     }
 }

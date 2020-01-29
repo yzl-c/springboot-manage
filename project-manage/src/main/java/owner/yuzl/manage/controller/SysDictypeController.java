@@ -24,6 +24,17 @@ public class SysDictypeController {
     SysDictypeService sysDictypeService;
 
     /**
+     * code唯一性
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/checkCodeUnique/{code}", method = RequestMethod.GET)
+    public Result checkCodeUnique(@PathVariable("code") String code) {
+        List<SysDictypePO> data = sysDictypeService.checkCodeUnique(code);
+        return ResultFactory.buildSuccessResult(data, "获取字典类型数据成功");
+    }
+
+    /**
      * 查询字典类型列表
      * @param
      * @return

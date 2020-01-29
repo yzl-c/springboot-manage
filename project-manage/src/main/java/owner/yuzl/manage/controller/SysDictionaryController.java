@@ -81,4 +81,15 @@ public class SysDictionaryController {
         sysDictionaryService.logicDeleteById(id);
         return ResultFactory.buildSuccessResult(null, "删除成功");
     }
+
+    /**
+     * code唯一性
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/checkCodeUnique/{code}", method = RequestMethod.GET)
+    public Result checkCodeUnique(@PathVariable("code") String code) {
+        List<SysDictionaryPO> data = sysDictionaryService.checkCodeUnique(code);
+        return ResultFactory.buildSuccessResult(data, "获取字典数据成功");
+    }
 }

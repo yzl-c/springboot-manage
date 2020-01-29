@@ -25,4 +25,7 @@ public interface SysRoleMapper {
     void logicDeleteById(Long id);
 
     SysRolePO getRoleById(Long id);
+
+    List<SysRolePO> getRolesByCode(Map<String, Object> params);
+
 }

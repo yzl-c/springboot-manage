@@ -170,4 +170,16 @@ public class SysUserServiceImpl implements SysUserService {
         param.put("pageSize", page.getPageSize());
         return sysUserMapper.getPage(param);
     }
+
+    /**
+     * 查询account唯一性
+     * @param account
+     * @return
+     */
+    @Override
+    public List<SysUserPO> checkAccountUnique(String account) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("account", account);
+        return sysUserMapper.getUsersByAccount(params);
+    }
 }

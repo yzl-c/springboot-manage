@@ -22,4 +22,6 @@ public interface SysDictypeMapper {
     void logicDeleteById(Long id);
 
     SysDictypePO getDictypeById(Long id);
+
+    List<SysDictypePO> getDictypesByCode(Map<String, Object> params);
 }

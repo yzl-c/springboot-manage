@@ -133,6 +133,17 @@ public class SysUserController {
     }
 
     /**
+     * code唯一性
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/checkAccountUnique/{account}", method = RequestMethod.GET)
+    public Result checkAccountUnique(@PathVariable("account") String account) {
+        List<SysUserPO> data = sysUserService.checkAccountUnique(account);
+        return ResultFactory.buildSuccessResult(data, "获取字典类型数据成功");
+    }
+
+    /**
      * 导出Excel表
      * @param response
      * @return

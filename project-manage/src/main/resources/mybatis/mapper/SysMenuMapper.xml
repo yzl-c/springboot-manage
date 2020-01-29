@@ -51,6 +51,16 @@
         AND m.deleted = 0
     </select>
 
+    <!--code查询菜单列表-->
+    <select id="getMenusByCode" resultType="SysMenuPO">
+        SELECT id, code, name, parent_id, level
+        FROM T_SYS_MENU
+        WHERE deleted = 0
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+    </select>
+
     <!--根据id查询菜单-->
     <select id="getMenuById" parameterType="java.lang.Long" resultType="SysMenuPO">
         SELECT id, code, name, parent_id, level

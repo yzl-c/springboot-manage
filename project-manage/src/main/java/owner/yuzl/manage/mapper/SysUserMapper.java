@@ -26,4 +26,7 @@ public interface SysUserMapper {
     List<SysUserPO> getUsers(Map param);
 
     SysUserPO getUserById(Long id);
+
+    List<SysUserPO> getUsersByAccount(Map<String, Object> params);
+
 }

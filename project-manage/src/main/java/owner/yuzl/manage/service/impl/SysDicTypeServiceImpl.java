@@ -10,6 +10,7 @@ import owner.yuzl.manage.mapper.SysDictypeMapper;
 import owner.yuzl.manage.service.SysDictypeService;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,5 +104,17 @@ public class SysDicTypeServiceImpl implements SysDictypeService {
         sysDictypeMapper.logicDeleteById(id);
         //删除类型为该类型的字典
         sysDictionaryMapper.logicDeleteByTypeId(id);
+    }
+
+    /**
+     * 查询code唯一性
+     * @param code
+     * @return
+     */
+    @Override
+    public List<SysDictypePO> checkCodeUnique(String code) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("code", code);
+        return sysDictypeMapper.getDictypesByCode(params);
     }
 }

@@ -4,6 +4,7 @@ import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.po.SysUserPO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author：yzl_c
@@ -59,5 +60,19 @@ public interface SysUserService {
      */
     SysUserPO getUserByAccount(String account);
 
+    /**
+     * 获取查询结果
+     * @param queryUser
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     List<SysUserPO> getUsers(SysUserPO queryUser, Integer pageNum, Integer pageSize);
+
+    /**
+     * 查询account唯一性
+     * @param account
+     * @return
+     */
+    List<SysUserPO> checkAccountUnique(String account);
 }

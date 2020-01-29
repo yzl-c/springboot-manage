@@ -84,4 +84,10 @@ public interface SysPermissionService {
      */
     List<SysPermissionPO> getSubPermissions(Long id, List<SysPermissionPO> allPermissions);
 
+    /**
+     * 查询code唯一性
+     * @param code
+     * @return
+     */
+    List<SysPermissionPO> checkCodeUnique(String code);
 }

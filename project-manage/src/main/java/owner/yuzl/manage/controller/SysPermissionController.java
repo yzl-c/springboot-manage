@@ -23,6 +23,17 @@ public class SysPermissionController {
     SysPermissionService sysPermissionService;
 
     /**
+     * code唯一性
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/checkCodeUnique/{code}", method = RequestMethod.GET)
+    public Result checkCodeUnique(@PathVariable("code") String code) {
+        List<SysPermissionPO> data = sysPermissionService.checkCodeUnique(code);
+        return ResultFactory.buildSuccessResult(data, "获取权限数据成功");
+    }
+
+    /**
      * 查询权限列表
      * @param
      * @return

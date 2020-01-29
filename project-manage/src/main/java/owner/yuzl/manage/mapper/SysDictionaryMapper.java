@@ -25,4 +25,6 @@ public interface SysDictionaryMapper {
     SysDictionaryPO getDictionaryById(Long id);
 
     void logicDeleteByTypeId(Long typeId);
+
+    List<SysDictionaryPO> getDictionarysByCode(Map<String, Object> params);
 }

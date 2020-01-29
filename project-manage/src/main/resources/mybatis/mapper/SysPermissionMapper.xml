@@ -29,10 +29,23 @@
             <if test="name != null and name != ''">
                 AND INSTR(name, #{name}) > 0
             </if>
+            <if test="level != null and level != ''">
+                AND level = #{level}
+            </if>
             AND deleted = 0
         </where>
         <if test="beginIndex != null and pageSize != null">
             LIMIT #{beginIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <!--code查询权限列表-->
+    <select id="getPermissionsByCode" resultType="SysPermissionPO">
+        SELECT id, code, name, parent_id, level
+        FROM T_SYS_PERMISSION
+        WHERE deleted = 0
+        <if test="code != null and code != ''">
+            AND code = #{code}
         </if>
     </select>
 
@@ -54,12 +67,12 @@
     </select>
 
     <!--根据等级查询权限-->
-    <select id="getPermissionsByLevel" parameterType="java.lang.Integer" resultType="SysPermissionPO">
-        SELECT id, code, name, parent_id, level
-        FROM T_SYS_PERMISSION
-        WHERE level = #{level}
-        AND deleted = 0
-    </select>
+<!--    <select id="getPermissionsByLevel" parameterType="java.lang.Integer" resultType="SysPermissionPO">-->
+<!--        SELECT id, code, name, parent_id, level-->
+<!--        FROM T_SYS_PERMISSION-->
+<!--        WHERE level = #{level}-->
+<!--        AND deleted = 0-->
+<!--    </select>-->
 
     <!--插入-->
     <insert id="insert" parameterType="SysPermissionPO">

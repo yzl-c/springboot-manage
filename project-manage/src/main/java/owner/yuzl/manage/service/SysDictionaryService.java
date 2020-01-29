@@ -48,4 +48,11 @@ public interface SysDictionaryService {
      * @param id
      */
     void logicDeleteById(Long id);
+
+    /**
+     * 查询code唯一性
+     * @param code
+     * @return
+     */
+    List<SysDictionaryPO> checkCodeUnique(String code);
 }

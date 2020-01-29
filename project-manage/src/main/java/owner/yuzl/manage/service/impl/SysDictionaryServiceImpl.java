@@ -9,6 +9,7 @@ import owner.yuzl.manage.mapper.SysDictionaryMapper;
 import owner.yuzl.manage.service.SysDictionaryService;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -97,5 +98,17 @@ public class SysDictionaryServiceImpl implements SysDictionaryService {
     @Override
     public void logicDeleteById(Long id) {
         sysDictionaryMapper.logicDeleteById(id);
+    }
+
+    /**
+     * 查询code唯一性
+     * @param code
+     * @return
+     */
+    @Override
+    public List<SysDictionaryPO> checkCodeUnique(String code) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("code", code);
+        return sysDictionaryMapper.getDictionarysByCode(params);
     }
 }

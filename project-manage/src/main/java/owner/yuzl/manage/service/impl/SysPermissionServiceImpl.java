@@ -8,10 +8,7 @@ import owner.yuzl.manage.mapper.SysPermissionMapper;
 import owner.yuzl.manage.mapper.SysRolePermissionMapper;
 import owner.yuzl.manage.service.SysPermissionService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author：yzl_c
@@ -33,7 +30,21 @@ public class SysPermissionServiceImpl implements SysPermissionService {
      */
     @Override
     public List<SysPermissionPO> getPermissionsByLevel(Integer level) {
-        return sysPermissionMapper.getPermissionsByLevel(level);
+        Map<String, Object> params = new HashMap<>();
+        params.put("level", level);
+        return sysPermissionMapper.getPermissions(params);
+    }
+
+    /**
+     * 查询code唯一性
+     * @param code
+     * @return
+     */
+    @Override
+    public List<SysPermissionPO> checkCodeUnique(String code) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("code", code);
+        return sysPermissionMapper.getPermissionsByCode(params);
     }
 
     /**
@@ -184,4 +195,6 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         }
         return subPermissionList;
     }
+
+
 }

@@ -54,6 +54,16 @@
         </if>
     </select>
 
+    <!--code查询角色列表-->
+    <select id="getRolesByCode" resultType="SysRolePO">
+        SELECT id, code, name
+        FROM T_SYS_ROLE
+        WHERE deleted = 0
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+    </select>
+
     <!--根据id查询权限-->
     <select id="getRoleById" parameterType="java.lang.Long" resultType="SysRolePO">
         SELECT id, code, name
