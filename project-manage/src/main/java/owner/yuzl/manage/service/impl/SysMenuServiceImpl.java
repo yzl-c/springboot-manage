@@ -1,14 +1,18 @@
 package owner.yuzl.manage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import owner.yuzl.manage.common.util.MapUtil;
+import owner.yuzl.manage.common.util.RedisUtil;
 import owner.yuzl.manage.entity.po.SysMenuPO;
 import owner.yuzl.manage.mapper.SysMenuMapper;
 import owner.yuzl.manage.mapper.SysRoleMenuMapper;
 import owner.yuzl.manage.service.SysMenuService;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -24,6 +28,12 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Autowired
     SysRoleMenuMapper sysRoleMenuMapper;
+
+    @Resource
+    RedisUtil redisUtil;
+
+    @Resource
+    RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 获取菜单列表
@@ -48,8 +58,13 @@ public class SysMenuServiceImpl implements SysMenuService {
      */
     @Override
     public List<SysMenuPO> getAllMenus() {
-        List<SysMenuPO> menus = sysMenuMapper.getAllMenus();
-        return this.bulidAsideMenu(menus);
+        List<SysMenuPO>  menus = (List<SysMenuPO>) redisUtil.hget("menu", "menuAsideList");
+        if (menus == null) {
+            menus = sysMenuMapper.getAllMenus();
+            redisUtil.hset("menu", "menuAsideList", menus);
+        }
+        List<SysMenuPO> menusTree = this.bulidAsideMenu(menus);
+        return menusTree;
     }
 
     /**

@@ -1,6 +1,8 @@
 package owner.yuzl.manage.entity.po;
 
 import lombok.Data;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * @Description：菜单实体类
  */
 @Data
-public class SysMenuPO {
+public class SysMenuPO implements Serializable {
     private Long id;
 
     private String code;
