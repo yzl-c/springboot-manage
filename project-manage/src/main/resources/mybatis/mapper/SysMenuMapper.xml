@@ -6,14 +6,14 @@
     <!--获取所有菜单-->
     <select id="getAllMenus" resultType="SysMenuPO">
         SELECT id, code, name, parent_id, level
-        FROM T_SYS_MENU
+        FROM t_sys_menu
         WHERE deleted = 0
     </select>
     
     <!--总量查询-->
     <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
         SELECT COUNT(1)
-        FROM T_SYS_MENU
+        FROM t_sys_menu
         <where>
             <if test="code != null and code != ''">
                 AND INSTR(code, #{code}) > 0
@@ -29,7 +29,7 @@
     <!--查询菜单列表-->
     <select id="getMenus" resultType="SysMenuPO">
         SELECT id, code, name, parent_id, level
-        FROM T_SYS_MENU
+        FROM t_sys_menu
         <where>
             <if test="code != null and code != ''">
                 AND INSTR(code, #{code}) > 0
@@ -44,8 +44,8 @@
     <!--根据角色id查询菜单-->
     <select id="getMenusByRoleId" parameterType="java.lang.Long" resultType="SysMenuPO">
         SELECT m.id, m.code, m.name, m.parent_id, m.level
-        FROM T_SYS_MENU m
-        LEFT JOIN T_SYS_ROLE_MENU rm
+        FROM t_sys_menu m
+        LEFT JOIN t_sys_role_menu rm
         ON m.id = rm.menu_id
         WHERE rm.role_id = #{roleId}
         AND m.deleted = 0
@@ -54,7 +54,7 @@
     <!--code查询菜单列表-->
     <select id="getMenusByCode" resultType="SysMenuPO">
         SELECT id, code, name, parent_id, level
-        FROM T_SYS_MENU
+        FROM t_sys_menu
         WHERE deleted = 0
         <if test="code != null and code != ''">
             AND code = #{code}
@@ -64,7 +64,7 @@
     <!--根据id查询菜单-->
     <select id="getMenuById" parameterType="java.lang.Long" resultType="SysMenuPO">
         SELECT id, code, name, parent_id, level
-        FROM T_SYS_MENU
+        FROM t_sys_menu
         WHERE id = #{id}
         AND  deleted = 0
     </select>
@@ -72,14 +72,14 @@
     <!--根据父菜单id查询-->
     <select id="getMenusByParentId" parameterType="java.lang.Long" resultType="SysMenuPO">
         SELECT id, code, name, parent_id, level
-        FROM T_SYS_MENU
+        FROM t_sys_menu
         WHERE parent_id = #{parentId}
         AND deleted = 0
     </select>
 
     <!--插入-->
     <insert id="insert" parameterType="SysMenuPO">
-        INSERT INTO T_SYS_MENU
+        INSERT INTO t_sys_menu
         (id, code, name, parent_id, level, create_time)
         VALUES
         (null, #{code}, #{name}, #{parentId}, #{level}, #{createTime})
@@ -87,21 +87,21 @@
 
     <!--更新-->
     <update id="update" parameterType="SysMenuPO">
-        UPDATE T_SYS_MENU
+        UPDATE t_sys_menu
         SET code = #{code}, name = #{name}, modify_time = #{modifyTime}
         WHERE id = #{id}
     </update>
 
     <!--根据id逻辑删除-->
     <update id="logicDeleteById">
-        UPDATE T_SYS_MENU
+        UPDATE t_sys_menu
         SET deleted = 1
         WHERE id = #{id}
     </update>
 
     <!--根据父菜单逻辑删除-->
     <update id="logicDeleteByParentId">
-        UPDATE T_SYS_MENU
+        UPDATE t_sys_menu
         SET deleted = 1
         WHERE parent_id = #{parentId}
         AND deleted = 0

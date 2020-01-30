@@ -14,7 +14,7 @@
     <!--总量查询-->
     <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
         SELECT COUNT(1)
-        FROM T_SYS_DICTYPE
+        FROM t_sys_dictype
         <where>
             <if test="code != null and code != ''">
                 AND INSTR(code, #{code}) > 0
@@ -29,7 +29,7 @@
     <!--查询字典类型列表-->
     <select id="getDictypes" resultMap="typeDictionaryMap">
         SELECT id, code, name
-        FROM T_SYS_DICTYPE
+        FROM t_sys_dictype
         <where>
             <if test="code != null and code != ''">
                 AND INSTR(code, #{code}) > 0
@@ -47,7 +47,7 @@
     <!--code查询字典类型列表-->
     <select id="getDictypesByCode" resultType="SysDictypePO">
         SELECT id, code, name
-        FROM T_SYS_DICTYPE
+        FROM t_sys_dictype
         WHERE deleted = 0
         <if test="code != null and code != ''">
             AND code = #{code}
@@ -57,13 +57,13 @@
     <!--根据id查询字典类型-->
     <select id="getDictypeById" parameterType="java.lang.Long" resultType="SysDictypePO">
         SELECT id, code, name
-        FROM T_SYS_DICTYPE
+        FROM t_sys_dictype
         WHERE id = #{id}
     </select>
 
     <!--插入-->
     <insert id="insert" parameterType="SysDictypePO">
-        INSERT INTO T_SYS_DICTYPE
+        INSERT INTO t_sys_dictype
         (id, code, name, create_time)
         VALUES
         (null, #{code}, #{name}, #{createTime})
@@ -71,14 +71,14 @@
 
     <!--更新-->
     <update id="update" parameterType="SysDictypePO">
-        UPDATE T_SYS_DICTYPE
+        UPDATE t_sys_dictype
         SET code = #{code}, name = #{name}, modify_time = #{modifyTime}
         WHERE id = #{id}
     </update>
 
     <!--逻辑删除-->
     <update id="logicDeleteById">
-        UPDATE T_SYS_DICTYPE
+        UPDATE t_sys_dictype
         SET deleted = 1
         WHERE id = #{id}
     </update>

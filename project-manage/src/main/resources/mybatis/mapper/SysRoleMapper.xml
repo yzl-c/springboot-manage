@@ -15,7 +15,7 @@
     <!--总量查询-->
     <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
         SELECT COUNT(1)
-        FROM T_SYS_ROLE
+        FROM t_sys_role
         <where>
             <if test="code != null and code != ''">
                 AND INSTR(code, #{code}) > 0
@@ -30,8 +30,8 @@
     <!--根据账号查询角色-->
     <select id="getRoleByUserId" parameterType="java.lang.Long" resultMap="rolePermissionMap">
         SELECT r.id, r.code, r.name
-        FROM T_SYS_ROLE r
-        LEFT JOIN T_SYS_USER_ROLE ur
+        FROM t_sys_role r
+        LEFT JOIN t_sys_user_role ur
         ON r.id = ur.role_id
         WHERE ur.user_id = #{userId}
     </select>
@@ -39,7 +39,7 @@
     <!--查询角色列表-->
     <select id="getRolesList" parameterType="java.util.Map" resultMap="rolePermissionMap">
         SELECT id , code, name
-        FROM T_SYS_ROLE
+        FROM t_sys_role
         <where>
             <if test="code != null and code != ''">
                 AND INSTR(code, #{code}) > 0
@@ -57,7 +57,7 @@
     <!--code查询角色列表-->
     <select id="getRolesByCode" resultType="SysRolePO">
         SELECT id, code, name
-        FROM T_SYS_ROLE
+        FROM t_sys_role
         WHERE deleted = 0
         <if test="code != null and code != ''">
             AND code = #{code}
@@ -67,13 +67,13 @@
     <!--根据id查询权限-->
     <select id="getRoleById" parameterType="java.lang.Long" resultType="SysRolePO">
         SELECT id, code, name
-        FROM T_SYS_ROLE
+        FROM t_sys_role
         WHERE id = #{id}
     </select>
 
     <!--插入-->
     <insert id="insert" parameterType="SysRolePO">
-        INSERT INTO T_SYS_ROLE
+        INSERT INTO t_sys_role
         (id, code, name, create_time)
         VALUES
         (null, #{code}, #{name}, #{createTime})
@@ -81,14 +81,14 @@
 
     <!--更新-->
     <update id="update" parameterType="SysRolePO">
-        UPDATE T_SYS_ROLE
+        UPDATE t_sys_role
         SET code = #{code}, name = #{name}, modify_time = #{modifyTime}
         WHERE id = #{id}
     </update>
 
     <!--逻辑删除-->
     <update id="logicDeleteById">
-        UPDATE T_SYS_ROLE
+        UPDATE t_sys_role
         SET deleted = 1
         WHERE id = #{id}
     </update>

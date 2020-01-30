@@ -5,13 +5,13 @@
 
 <!--  根据角色删除当前角色菜单对应的关系  -->
     <delete id="deleteRelativeByRoleId" >
-        DELETE FROM T_SYS_ROLE_MENU
+        DELETE FROM t_sys_role_menu
         WHERE role_id = #{roleId}
     </delete>
 
     <!--  根据菜单删除当前角色菜单对应的关系  -->
     <delete id="deleteRelativeByMenuIds" parameterType="java.util.List">
-        DELETE FROM T_SYS_ROLE_MENU
+        DELETE FROM t_sys_role_menu
         WHERE role_id IN
         <foreach collection="list" item="id" open="(" close=")" separator=",">
             #{id}
@@ -20,7 +20,7 @@
 
 <!-- 添加角色菜单关系 -->
     <insert id="createRelative">
-        INSERT INTO T_SYS_ROLE_MENU
+        INSERT INTO t_sys_role_menu
         (id, role_id, menu_id)
         VALUES
         <foreach collection="menuIds" item="item" index="index" separator=",">

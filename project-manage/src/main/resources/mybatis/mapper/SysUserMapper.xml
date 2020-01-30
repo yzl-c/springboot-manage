@@ -14,7 +14,7 @@
     <!--列表查询-->
     <select id="getUsers" parameterType="java.util.Map" resultMap="userRoleMap">
         SELECT u.id id, u.account account, u.name name
-        FROM T_SYS_USER u
+        FROM t_sys_user u
         <where>
             <if test="account != null and account != ''">
                 AND INSTR(u.account, #{account}) > 0
@@ -32,7 +32,7 @@
     <!--总量查询-->
     <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
         SELECT COUNT(1)
-        FROM T_SYS_USER
+        FROM t_sys_user
         <where>
             <if test="account != null and account != ''">
                 AND INSTR(account, #{account}) > 0
@@ -47,7 +47,7 @@
 <!--根据账号查询用户-->
     <select id="getUsersByAccount" resultType="SysUserPO">
         SELECT id, account, name
-        FROM T_SYS_USER
+        FROM t_sys_user
         WHERE account = #{account}
         AND deleted = 0
     </select>
@@ -55,21 +55,21 @@
     <!--根据id查询用户-->
     <select id="getUserById" parameterType="java.lang.Long" resultMap="userRoleMap">
         SELECT id, account, name, password
-        FROM T_SYS_USER
+        FROM t_sys_user
         WHERE id = #{id}
     </select>
 
     <!--根据账号查询用户-->
     <select id="getUserByAccount" parameterType="java.lang.String" resultMap="userRoleMap">
         SELECT id, account, name, password
-        FROM T_SYS_USER
+        FROM t_sys_user
         WHERE account = #{account}
         AND deleted = 0
     </select>
 
     <!--插入-->
     <insert id="insert" parameterType="SysUserPo">
-        INSERT INTO T_SYS_USER
+        INSERT INTO t_sys_user
         (id, account, name, password, create_time)
         VALUES
         (null, #{account}, #{name}, #{password}, #{createTime})
@@ -77,14 +77,14 @@
 
     <!--更新-->
     <update id="update" parameterType="SysUserPo">
-        UPDATE T_SYS_USER
+        UPDATE t_sys_user
         SET account = #{account}, name = #{name}, password = #{password}, modify_time = #{modifyTime}
         WHERE id = #{id}
     </update>
 
     <!--逻辑删除-->
     <update id="logicDeleteById">
-        UPDATE T_SYS_USER
+        UPDATE t_sys_user
         SET deleted = 1
         WHERE id = #{id}
 <!--        IN-->

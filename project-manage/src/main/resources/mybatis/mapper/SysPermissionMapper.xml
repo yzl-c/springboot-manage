@@ -6,7 +6,7 @@
     <!--总量查询-->
     <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
         SELECT COUNT(1)
-        FROM T_SYS_PERMISSION
+        FROM t_sys_permission
         <where>
             <if test="code != null and code != ''">
                 AND INSTR(code, #{code}) > 0
@@ -21,7 +21,7 @@
     <!--查询权限列表-->
     <select id="getPermissions" resultType="SysPermissionPO">
         SELECT id, code, name, parent_id, level
-        FROM T_SYS_PERMISSION
+        FROM t_sys_permission
         <where>
             <if test="code != null and code != ''">
                 AND INSTR(code, #{code}) > 0
@@ -42,7 +42,7 @@
     <!--code查询权限列表-->
     <select id="getPermissionsByCode" resultType="SysPermissionPO">
         SELECT id, code, name, parent_id, level
-        FROM T_SYS_PERMISSION
+        FROM t_sys_permission
         WHERE deleted = 0
         <if test="code != null and code != ''">
             AND code = #{code}
@@ -52,8 +52,8 @@
     <!--根据角色id查询权限-->
     <select id="getPermissionsByRoleId" parameterType="java.lang.Long" resultType="SysPermissionPO">
         SELECT p.id, p.code, p.name, p.parent_id, p.level
-        FROM T_SYS_PERMISSION p
-        LEFT JOIN T_SYS_ROLE_PERMISSION rp
+        FROM t_sys_permission p
+        LEFT JOIN t_sys_role_permission rp
         ON p.id = rp.permission_id
         WHERE rp.role_id = #{roleId}
         AND p.deleted = 0
@@ -62,21 +62,21 @@
     <!--根据id查询权限-->
     <select id="getPermissionById" parameterType="java.lang.Long" resultType="SysPermissionPO">
         SELECT id, code, name, parent_id, level
-        FROM T_SYS_PERMISSION
+        FROM t_sys_permission
         WHERE id = #{id}
     </select>
 
     <!--根据等级查询权限-->
 <!--    <select id="getPermissionsByLevel" parameterType="java.lang.Integer" resultType="SysPermissionPO">-->
 <!--        SELECT id, code, name, parent_id, level-->
-<!--        FROM T_SYS_PERMISSION-->
+<!--        FROM t_sys_permission-->
 <!--        WHERE level = #{level}-->
 <!--        AND deleted = 0-->
 <!--    </select>-->
 
     <!--插入-->
     <insert id="insert" parameterType="SysPermissionPO">
-        INSERT INTO T_SYS_PERMISSION
+        INSERT INTO t_sys_permission
         (id, code, name, parent_id, level, create_time)
         VALUES
         (null, #{code}, #{name}, #{parentId}, #{level}, #{createTime})
@@ -84,14 +84,14 @@
 
     <!--更新-->
     <update id="update" parameterType="SysPermissionPO">
-        UPDATE T_SYS_PERMISSION
+        UPDATE t_sys_permission
         SET code = #{code}, name = #{name}, modify_time = #{modifyTime}
         WHERE id = #{id}
     </update>
 
     <!--逻辑删除-->
     <update id="logicDeleteById">
-        UPDATE T_SYS_PERMISSION
+        UPDATE t_sys_permission
         SET deleted = 1
         WHERE id = #{id}
     </update>

@@ -4,19 +4,19 @@
 <mapper namespace="owner.yuzl.manage.mapper.SysUserRoleMapper">
     <!--  根据用户删除当前用户对应的关系  -->
     <delete id="deleteRelativeByUserId" parameterType="java.lang.Long">
-        DELETE FROM T_SYS_USER_ROLE
+        DELETE FROM t_sys_user_role
         WHERE user_id = #{userId}
     </delete>
 
     <!--  根据角色删除当前用户对应的关系  -->
     <delete id="deleteRelativeByRoleId" parameterType="java.lang.Long">
-        DELETE FROM T_SYS_USER_ROLE
+        DELETE FROM t_sys_user_role
         WHERE role_id = #{roleId}
     </delete>
 
 <!-- 添加用户角色关系 -->
     <insert id="createRelative">
-        INSERT INTO T_SYS_USER_ROLE
+        INSERT INTO t_sys_user_role
         (id, user_id, role_id)
         VALUES (null, #{userId}, #{roleId})
     </insert>
