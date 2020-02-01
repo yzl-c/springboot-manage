@@ -8,11 +8,11 @@ package owner.yuzl.manage.common.result;
 public class ResultFactory {
 
     public static Result buildSuccessResult(Object data, String message) {
-        return buildResult(data, message, StatusCode.SUCCESS.code);
+        return buildResult(data, message, StatusCode.OK.getCode());
     }
 
     public static Result buildFailResult(String message) {
-        return buildResult(null, message, StatusCode.FAIL.code);
+        return buildResult(null, message, StatusCode.SYSTEM_ERR.getCode());
     }
 
     public static Result buildResult(Object data, String message, Integer resultCode) {

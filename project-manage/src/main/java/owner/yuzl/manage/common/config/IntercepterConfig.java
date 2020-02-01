@@ -3,6 +3,7 @@ package owner.yuzl.manage.common.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import owner.yuzl.manage.common.intercepter.TokenInterceptor;
 
 /**
  * @Author：yzl_c

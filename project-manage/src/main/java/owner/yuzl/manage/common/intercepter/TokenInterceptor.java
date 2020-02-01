@@ -1,8 +1,9 @@
-package owner.yuzl.manage.common.config;
+package owner.yuzl.manage.common.intercepter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import owner.yuzl.manage.common.result.Result;
 import owner.yuzl.manage.common.result.ResultFactory;
+import owner.yuzl.manage.common.result.StatusCode;
 import owner.yuzl.manage.common.util.JWTUtil;
 import owner.yuzl.manage.common.util.JsonUtils;
 
@@ -25,7 +26,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        System.out.println("请求地址" + request.getRequestURI());
+//        System.out.println("请求地址" + request.getRequestURI());
         response.setCharacterEncoding("utf-8");
         //获取请求头的token Authorization属性
         String token = request.getHeader("Authorization");
@@ -40,13 +41,12 @@ public class TokenInterceptor implements HandlerInterceptor {
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out = null;
         try{
-            Result result = ResultFactory.buildFailResult("token认证失败");
+            Result result = ResultFactory.buildResult(null, "token认证失败", StatusCode.TOKEN_ERROR.getCode());
             response.getWriter().append(JsonUtils.toJson(result));
-            System.out.println("认证失败,未通过拦截器");
+            System.out.println("token认证失败,未通过拦截器");
         }catch (Exception e){
             e.printStackTrace();
-            response.sendError(500);
-            return false;
+            response.sendError(StatusCode.SYSTEM_ERR.getCode());
         }
         return false;
 
