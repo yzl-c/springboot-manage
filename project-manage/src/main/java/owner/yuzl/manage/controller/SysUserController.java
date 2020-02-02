@@ -40,7 +40,7 @@ import java.util.List;
  * @Description：系统用户Controller
  */
 @RestController
-@RequestMapping(value = "/sysUser")
+@RequestMapping(value = "/user")
 public class SysUserController {
     private Logger logger = LoggerFactory.getLogger(SysUserController.class);
 
@@ -48,35 +48,11 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     /**
-     * 跳转主页
-     * @return 主页视图
-     */
-//    @GetMapping(value = "/toIndex")
-//    public String toSysUserIndex() {
-//        return "manage/sysUser/index";
-//    }
-
-    /**
-     * 跳转更新系统用户
-     * @param id
-     * @param model
-     * @return 更新视图
-     */
-//    @GetMapping(value = "/toUpdate")
-//    public String toSysUserUpdate(Long id, Model model) {
-//        if (!StringUtils.isEmpty(id)) {
-//            SysUserPO sysUserPO = sysUserService.getOneById(id);
-//            model.addAttribute("sysUser", sysUserPO);
-//        }
-//        return "manage/sysUser/update";
-//    }
-
-    /**
      * 获取用户信息
      * @param id
      * @return 用户信息
      */
-    @RequestMapping(value = "/getUserById/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result getUserById(@PathVariable(value = "id") Long id) {
         if (StringUtils.isEmpty(id)) {
             return ResultFactory.buildFailResult("获取用户信息失败");
@@ -92,8 +68,8 @@ public class SysUserController {
      * @param pageSize
      * @return 查询结果
      */
-    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-    public Result getUsersByPage(SysUserPO queryUser, Integer pageNum, Integer pageSize) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Result getUsers(SysUserPO queryUser, Integer pageNum, Integer pageSize) {
         long total = sysUserService.countTotal(queryUser);
         List<SysUserPO> dataList = sysUserService.getUsers(queryUser, pageNum, pageSize);
         return ResultFactory.buildSuccessResult(new ResultPage(total, pageNum, dataList), "请求用户列表数据成功");
@@ -104,7 +80,7 @@ public class SysUserController {
      * @param sysUserPO
      * @return 执行结果
      */
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysUserPO sysUserPO) {
         sysUserService.create(sysUserPO);
         return ResultFactory.buildSuccessResult(null, "添加用户成功");
@@ -115,7 +91,7 @@ public class SysUserController {
      * @param sysUserPO
      * @return 执行结果
      */
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysUserPO sysUserPO) {
         sysUserService.update(sysUserPO);
         return ResultFactory.buildSuccessResult(null, "更新成功");
@@ -126,7 +102,7 @@ public class SysUserController {
      * @param id
      * @return 执行结果
      */
-    @RequestMapping(value = "/logicDeleteById/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysUserService.logicDeleteById(id);
         return ResultFactory.buildSuccessResult(null, "删除成功");
@@ -137,11 +113,11 @@ public class SysUserController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/checkAccountUnique/{account}", method = RequestMethod.GET)
-    public Result checkAccountUnique(@PathVariable("account") String account) {
-        List<SysUserPO> data = sysUserService.checkAccountUnique(account);
-        return ResultFactory.buildSuccessResult(data, "获取字典类型数据成功");
-    }
+//    @RequestMapping(value = "/checkAccountUnique/{account}", method = RequestMethod.GET)
+//    public Result checkAccountUnique(@PathVariable("account") String account) {
+//        List<SysUserPO> data = sysUserService.checkAccountUnique(account);
+//        return ResultFactory.buildSuccessResult(data, "获取字典类型数据成功");
+//    }
 
     /**
      * 导出Excel表

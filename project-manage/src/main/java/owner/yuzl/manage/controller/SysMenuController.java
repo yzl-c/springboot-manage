@@ -16,7 +16,7 @@ import java.util.List;
  * @Description：系统菜单Controller
  */
 @RestController
-@RequestMapping(value = "/sysMenu")
+@RequestMapping(value = "/menu")
 public class SysMenuController {
     @Autowired
     SysMenuService sysMenuService;
@@ -25,7 +25,7 @@ public class SysMenuController {
      * 获取所有菜单(树结构)
      * @return
      */
-    @RequestMapping(value = "/getAllMenus", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public Result menuList(){
         List<SysMenuPO> menus = sysMenuService.getAllMenus();
         return ResultFactory.buildSuccessResult(menus,"请求菜单数据成功");
@@ -36,11 +36,11 @@ public class SysMenuController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/getMenusList", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getMenusList(SysMenuPO sysMenu) {
 //        long total = sysMenuService.countTotal(sysMenu);
         List<SysMenuPO> dataList = sysMenuService.getMenusList(sysMenu);
-        return ResultFactory.buildSuccessResult(dataList, "获取权限列表数据成功");
+        return ResultFactory.buildSuccessResult(dataList, "获取菜单列表数据成功");
     }
 
     /**
@@ -48,8 +48,8 @@ public class SysMenuController {
      * @param id
      * @return 权限信息
      */
-    @RequestMapping(value = "/getMenuById/{id}", method = RequestMethod.GET)
-    public Result getUserById(@PathVariable(value = "id") Long id) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Result getMenuById(@PathVariable(value = "id") Long id) {
         if (StringUtils.isEmpty(id)) {
             return ResultFactory.buildFailResult("获取权限信息失败");
         }
@@ -62,7 +62,7 @@ public class SysMenuController {
      * @param sysMenu
      * @return 执行结果
      */
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysMenuPO sysMenu) {
         sysMenuService.create(sysMenu);
         return ResultFactory.buildSuccessResult(null, "添加权限成功");
@@ -73,7 +73,7 @@ public class SysMenuController {
      * @param sysMenu
      * @return 执行结果
      */
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysMenuPO sysMenu) {
         sysMenuService.update(sysMenu);
         return ResultFactory.buildSuccessResult(null, "更新成功");
@@ -84,7 +84,7 @@ public class SysMenuController {
      * @param id
      * @return 执行结果
      */
-    @RequestMapping(value = "/logicDeleteById/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysMenuService.logicDeleteById(id);
         return ResultFactory.buildSuccessResult(null, "删除成功");
@@ -95,7 +95,7 @@ public class SysMenuController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/checkCodeUnique/{code}", method = RequestMethod.GET)
+    @RequestMapping(value = "/check/{code}", method = RequestMethod.GET)
     public Result checkCodeUnique(@PathVariable("code") String code) {
         List<SysMenuPO> data = sysMenuService.checkCodeUnique(code);
         return ResultFactory.buildSuccessResult(data, "获取菜单数据成功");

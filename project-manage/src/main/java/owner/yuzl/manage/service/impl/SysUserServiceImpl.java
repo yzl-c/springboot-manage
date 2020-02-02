@@ -130,8 +130,10 @@ public class SysUserServiceImpl implements SysUserService {
             e.printStackTrace();
             System.out.println("Object 转换 Map 异常！");
         }
-        param.put("beginIndex", (pageNum - 1) * pageSize );
-        param.put("pageSize", pageSize);
+        if (!ObjectUtils.isEmpty(pageNum) && !ObjectUtils.isEmpty(pageSize)) {
+            param.put("beginIndex", (pageNum - 1) * pageSize );
+            param.put("pageSize", pageSize);
+        }
         return sysUserMapper.getUsers(param);
     }
 

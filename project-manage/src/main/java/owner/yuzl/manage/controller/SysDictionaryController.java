@@ -17,7 +17,7 @@ import java.util.List;
  * @Description：
  */
 @RestController
-@RequestMapping("/sysDictionary")
+@RequestMapping("/dictionary")
 public class SysDictionaryController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class SysDictionaryController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/getDictionarysList", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getDictionarysList(SysDictionaryPO sysDictionary, Integer pageNum, Integer pageSize) {
         long total = sysDictionaryService.countTotal(sysDictionary);
         List<SysDictionaryPO> dataList = sysDictionaryService.getDictionarysList(sysDictionary, pageNum, pageSize);
@@ -40,7 +40,7 @@ public class SysDictionaryController {
      * @param id
      * @return 权限信息
      */
-    @RequestMapping(value = "/getDictionaryById/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result getUserById(@PathVariable(value = "id") Long id) {
         if (StringUtils.isEmpty(id)) {
             return ResultFactory.buildFailResult("获取字典类型信息失败");
@@ -54,7 +54,7 @@ public class SysDictionaryController {
      * @param sysDictionary
      * @return 执行结果
      */
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysDictionaryPO sysDictionary) {
         sysDictionaryService.create(sysDictionary);
         return ResultFactory.buildSuccessResult(null, "添加字典类型成功");
@@ -65,7 +65,7 @@ public class SysDictionaryController {
      * @param sysDictionary
      * @return 执行结果
      */
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysDictionaryPO sysDictionary) {
         sysDictionaryService.update(sysDictionary);
         return ResultFactory.buildSuccessResult(null, "更新成功");
@@ -76,7 +76,7 @@ public class SysDictionaryController {
      * @param id
      * @return 执行结果
      */
-    @RequestMapping(value = "/logicDeleteById/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysDictionaryService.logicDeleteById(id);
         return ResultFactory.buildSuccessResult(null, "删除成功");
@@ -87,9 +87,9 @@ public class SysDictionaryController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/checkCodeUnique/{code}", method = RequestMethod.GET)
-    public Result checkCodeUnique(@PathVariable("code") String code) {
-        List<SysDictionaryPO> data = sysDictionaryService.checkCodeUnique(code);
-        return ResultFactory.buildSuccessResult(data, "获取字典数据成功");
-    }
+//    @RequestMapping(value = "/{code}", method = RequestMethod.GET)
+//    public Result checkCodeUnique(@PathVariable("code") String code) {
+//        List<SysDictionaryPO> data = sysDictionaryService.checkCodeUnique(code);
+//        return ResultFactory.buildSuccessResult(data, "获取字典数据成功");
+//    }
 }

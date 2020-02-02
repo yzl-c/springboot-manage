@@ -17,7 +17,7 @@ import java.util.List;
  * @Description：
  */
 @RestController
-@RequestMapping("/sysDictype")
+@RequestMapping("/dictype")
 public class SysDictypeController {
 
     @Autowired
@@ -28,18 +28,18 @@ public class SysDictypeController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/checkCodeUnique/{code}", method = RequestMethod.GET)
-    public Result checkCodeUnique(@PathVariable("code") String code) {
-        List<SysDictypePO> data = sysDictypeService.checkCodeUnique(code);
-        return ResultFactory.buildSuccessResult(data, "获取字典类型数据成功");
-    }
+//    @RequestMapping(value = "/{code}", method = RequestMethod.GET)
+//    public Result checkCodeUnique(String code) {
+//        List<SysDictypePO> data = sysDictypeService.checkCodeUnique(code);
+//        return ResultFactory.buildSuccessResult(data, "获取字典类型数据成功");
+//    }
 
     /**
      * 查询字典类型列表
      * @param
      * @return
      */
-    @RequestMapping(value = "/getDictypesList", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getDictypesList(SysDictypePO sysDictype, Integer pageNum, Integer pageSize) {
         long total = sysDictypeService.countTotal(sysDictype);
         List<SysDictypePO> dataList = sysDictypeService.getDictypesList(sysDictype, pageNum, pageSize);
@@ -51,7 +51,7 @@ public class SysDictypeController {
      * @param id
      * @return 权限信息
      */
-    @RequestMapping(value = "/getDictypeById/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result getUserById(@PathVariable(value = "id") Long id) {
         if (StringUtils.isEmpty(id)) {
             return ResultFactory.buildFailResult("获取字典类型信息失败");
@@ -65,7 +65,7 @@ public class SysDictypeController {
      * @param sysDictype
      * @return 执行结果
      */
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysDictypePO sysDictype) {
         sysDictypeService.create(sysDictype);
         return ResultFactory.buildSuccessResult(null, "添加字典类型成功");
@@ -76,7 +76,7 @@ public class SysDictypeController {
      * @param sysDictype
      * @return 执行结果
      */
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysDictypePO sysDictype) {
         sysDictypeService.update(sysDictype);
         return ResultFactory.buildSuccessResult(null, "更新成功");
@@ -87,7 +87,7 @@ public class SysDictypeController {
      * @param id
      * @return 执行结果
      */
-    @RequestMapping(value = "/logicDeleteById/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysDictypeService.logicDeleteById(id);
         return ResultFactory.buildSuccessResult(null, "删除成功");

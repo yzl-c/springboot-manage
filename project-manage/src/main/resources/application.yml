@@ -66,4 +66,4 @@ mybatis:
 #mybatis sql日志
 logging:
   level:
-    owner.yuzl.manage.mapper: info
+    owner.yuzl.manage.mapper: debug

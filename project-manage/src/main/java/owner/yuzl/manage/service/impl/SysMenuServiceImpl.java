@@ -60,7 +60,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<SysMenuPO> getAllMenus() {
         List<SysMenuPO>  menus = (List<SysMenuPO>) redisUtil.hget("menu", "menuAsideList");
         if (menus == null) {
-            menus = sysMenuMapper.getAllMenus();
+            menus = sysMenuMapper.getMenus(null);
             redisUtil.hset("menu", "menuAsideList", menus);
         }
         List<SysMenuPO> menusTree = this.bulidAsideMenu(menus);
@@ -199,6 +199,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<SysMenuPO> checkCodeUnique(String code) {
         Map<String, Object> params = new HashMap<>();
         params.put("code", code);
-        return sysMenuMapper.getMenusByCode(params);
+        return sysMenuMapper.getMenus(params);
     }
 }

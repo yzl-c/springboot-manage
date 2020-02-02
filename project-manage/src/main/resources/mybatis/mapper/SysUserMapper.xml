@@ -17,7 +17,7 @@
         FROM t_sys_user u
         <where>
             <if test="account != null and account != ''">
-                AND INSTR(u.account, #{account}) > 0
+                AND u.account = #{account}
             </if>
             <if test="name != null and name != ''">
                 AND INSTR(u.name, #{name}) > 0
@@ -35,7 +35,7 @@
         FROM t_sys_user
         <where>
             <if test="account != null and account != ''">
-                AND INSTR(account, #{account}) > 0
+                AND account = #{account}
             </if>
             <if test="name != null and name != ''">
                 AND INSTR(name, #{name}) > 0

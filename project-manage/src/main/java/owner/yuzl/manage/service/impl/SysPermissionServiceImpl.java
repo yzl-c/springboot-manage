@@ -2,6 +2,7 @@ package owner.yuzl.manage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import owner.yuzl.manage.common.util.MapUtil;
 import owner.yuzl.manage.entity.po.SysPermissionPO;
 import owner.yuzl.manage.mapper.SysPermissionMapper;
@@ -73,8 +74,10 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             e.printStackTrace();
             System.out.println("Object 转换 Map 异常！");
         }
-        param.put("beginIndex", (pageNum - 1) * pageSize );
-        param.put("pageSize", pageSize);
+        if (!ObjectUtils.isEmpty(pageNum) && !ObjectUtils.isEmpty(pageSize)) {
+            param.put("beginIndex", (pageNum - 1) * pageSize );
+            param.put("pageSize", pageSize);
+        }
         return sysPermissionMapper.getPermissions(param);
     }
 

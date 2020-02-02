@@ -20,7 +20,7 @@ import java.util.List;
  * @Description：系统角色Controller
  */
 @RestController
-@RequestMapping(value = "/sysRole")
+@RequestMapping(value = "/role")
 public class SysRoleController {
     @Autowired
     SysRoleService sysRoleService;
@@ -32,7 +32,7 @@ public class SysRoleController {
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "/getRolesList", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getRolesList(SysRolePO sysRole, Integer pageNum, Integer pageSize){
         long total = sysRoleService.countTotal(sysRole);
         List<SysRolePO> dataList = sysRoleService.getRoleList(sysRole, pageNum, pageSize);
@@ -44,7 +44,7 @@ public class SysRoleController {
      * @param id
      * @return 角色信息
      */
-    @RequestMapping(value = "/getRoleById/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result getRoleById(@PathVariable(value = "id") Long id) {
         if (StringUtils.isEmpty(id)) {
             return ResultFactory.buildFailResult("获取角色信息失败");
@@ -58,7 +58,7 @@ public class SysRoleController {
      * @param sysRole
      * @return 执行结果
      */
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysRolePO sysRole) {
         sysRoleService.create(sysRole);
         return ResultFactory.buildSuccessResult(null, "添加角色成功");
@@ -69,7 +69,7 @@ public class SysRoleController {
      * @param sysRole
      * @return 执行结果
      */
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysRolePO sysRole) {
         sysRoleService.update(sysRole);
         return ResultFactory.buildSuccessResult(null, "更新成功");
@@ -80,7 +80,7 @@ public class SysRoleController {
      * @param id
      * @return 执行结果
      */
-    @RequestMapping(value = "/logicDeleteById/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysRoleService.logicDeleteById(id);
         return ResultFactory.buildSuccessResult(null, "删除成功");
@@ -91,9 +91,9 @@ public class SysRoleController {
      * @param
      * @return
      */
-    @RequestMapping(value = "/checkCodeUnique/{code}", method = RequestMethod.GET)
-    public Result checkCodeUnique(@PathVariable("code") String code) {
-        List<SysRolePO> data = sysRoleService.checkCodeUnique(code);
-        return ResultFactory.buildSuccessResult(data, "获取角色数据成功");
-    }
+//    @RequestMapping(value = "/checkCodeUnique/{code}", method = RequestMethod.GET)
+//    public Result checkCodeUnique(@PathVariable("code") String code) {
+//        List<SysRolePO> data = sysRoleService.checkCodeUnique(code);
+//        return ResultFactory.buildSuccessResult(data, "获取角色数据成功");
+//    }
 }
