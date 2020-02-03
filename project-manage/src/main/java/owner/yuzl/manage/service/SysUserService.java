@@ -1,10 +1,8 @@
 package owner.yuzl.manage.service;
 
-import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.po.SysUserPO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author：yzl_c
@@ -19,14 +17,6 @@ public interface SysUserService {
      * @return
      */
     long countTotal(SysUserPO queryUser);
-
-    /**
-     * 获取查询结果
-     * @param search
-     * @param page
-     * @return
-     */
-    List<SysUserPO> getPage(String search, BasePage page);
 
     /**
      * 执行添加操作

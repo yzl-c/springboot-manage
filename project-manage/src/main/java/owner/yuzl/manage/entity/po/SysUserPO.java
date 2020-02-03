@@ -29,6 +29,12 @@ public class SysUserPO{
 
     private String password;
 
+    private Long deptId;
+
+    private String deptCode;
+
+    private String deptName;
+
 //    @Column(name = "create_user")
     private Integer createUser;
 

@@ -20,7 +20,7 @@
 
     <!--查询字典列表-->
     <select id="getDictionarys" resultType="SysDictionaryPO">
-        SELECT id, code, name, parent_id, level
+        SELECT id, code, name, type_id
         FROM t_sys_dictionary
         <where>
             <if test="code != null and code != ''">

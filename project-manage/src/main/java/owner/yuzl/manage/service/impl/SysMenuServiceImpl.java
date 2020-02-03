@@ -58,11 +58,11 @@ public class SysMenuServiceImpl implements SysMenuService {
      */
     @Override
     public List<SysMenuPO> getAllMenus() {
-        List<SysMenuPO>  menus = (List<SysMenuPO>) redisUtil.hget("menu", "menuAsideList");
-        if (menus == null) {
-            menus = sysMenuMapper.getMenus(null);
-            redisUtil.hset("menu", "menuAsideList", menus);
-        }
+//        List<SysMenuPO>  menus = (List<SysMenuPO>) redisUtil.hget("menu", "menuAsideList");
+//        if (menus == null) {
+          List<SysMenuPO>  menus = sysMenuMapper.getMenus(null);
+//            redisUtil.hset("menu", "menuAsideList", menus);
+//        }
         List<SysMenuPO> menusTree = this.bulidAsideMenu(menus);
         return menusTree;
     }

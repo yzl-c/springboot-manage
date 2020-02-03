@@ -13,8 +13,12 @@
 
     <!--列表查询-->
     <select id="getUsers" parameterType="java.util.Map" resultMap="userRoleMap">
-        SELECT u.id id, u.account account, u.name name
+        SELECT u.id, u.account, u.name, u.dept_id,
+        d.code deptCode, d.name deptName
         FROM t_sys_user u
+        LEFT JOIN t_sys_department d
+        ON u.dept_id = d.id
+        AND d.deleted = 0
         <where>
             <if test="account != null and account != ''">
                 AND u.account = #{account}
@@ -46,39 +50,51 @@
 
 <!--根据账号查询用户-->
     <select id="getUsersByAccount" resultType="SysUserPO">
-        SELECT id, account, name
-        FROM t_sys_user
+        SELECT u.id, u.account, u.name, u.dept_id,
+        d.code deptCode, d.name deptName
+        FROM t_sys_user u
+        LEFT JOIN t_sys_department d
+        ON u.dept_id = d.id
+        AND d.deleted = 0
         WHERE account = #{account}
         AND deleted = 0
     </select>
 
     <!--根据id查询用户-->
     <select id="getUserById" parameterType="java.lang.Long" resultMap="userRoleMap">
-        SELECT id, account, name, password
-        FROM t_sys_user
-        WHERE id = #{id}
+        SELECT u.id, u.account, u.name, u.password, u.dept_id,
+        d.code deptCode, d.name deptName
+        FROM t_sys_user u
+        LEFT JOIN t_sys_department d
+        ON u.dept_id = d.id
+        AND d.deleted = 0
+        WHERE u.id = #{id}
     </select>
 
     <!--根据账号查询用户-->
     <select id="getUserByAccount" parameterType="java.lang.String" resultMap="userRoleMap">
-        SELECT id, account, name, password
-        FROM t_sys_user
-        WHERE account = #{account}
-        AND deleted = 0
+        SELECT u.id, u.account, u.name, u.password, u.dept_id,
+        d.code deptCode, d.name deptName
+        FROM t_sys_user u
+        LEFT JOIN t_sys_department d
+        ON u.dept_id = d.id
+        AND d.deleted = 0
+        WHERE u.account = #{account}
+        AND d.deleted = 0
     </select>
 
     <!--插入-->
     <insert id="insert" parameterType="SysUserPo">
         INSERT INTO t_sys_user
-        (id, account, name, password, create_time)
+        (id, account, name, password, dept_id, create_time)
         VALUES
-        (null, #{account}, #{name}, #{password}, #{createTime})
+        (null, #{account}, #{name}, #{password}, #{deptId}, #{createTime})
     </insert>
 
     <!--更新-->
     <update id="update" parameterType="SysUserPo">
         UPDATE t_sys_user
-        SET account = #{account}, name = #{name}, password = #{password}, modify_time = #{modifyTime}
+        SET account = #{account}, name = #{name}, password = #{password}, dept_id = #{deptId}, modify_time = #{modifyTime}
         WHERE id = #{id}
     </update>
 

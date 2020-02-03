@@ -1,12 +1,10 @@
 package owner.yuzl.manage.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import owner.yuzl.manage.common.util.MapUtil;
-import owner.yuzl.manage.entity.base.BasePage;
 import owner.yuzl.manage.entity.po.SysUserPO;
 import owner.yuzl.manage.mapper.SysUserMapper;
 import owner.yuzl.manage.mapper.SysUserRoleMapper;
@@ -135,42 +133,6 @@ public class SysUserServiceImpl implements SysUserService {
             param.put("pageSize", pageSize);
         }
         return sysUserMapper.getUsers(param);
-    }
-
-
-    /**
-     * 获取查询结果
-     * @param search
-     * @param page
-     * @return
-     */
-    @Override
-    public List<SysUserPO> getPage(String search, BasePage page) {
-//        springdatajpa方式
-//        SysUserPO sysUserPO = JSONObject.parseObject(search, SysUserPO.class);
-//        if (ObjectUtils.isEmpty(sysUserPO)) {
-//            sysUserPO = new SysUserPO();
-//        }
-//        sysUserPO.setDeleted(0);
-////        SpringDataJpa操作
-////        Sort sort = Sort.by(Sort.Direction.DESC,"createTime");  //排序
-//        Pageable pageable = PageRequest.of(page.getCurrentPage() - 1, page.getPageSize()); // 分页
-////        匹配条件
-//        ExampleMatcher matcher = ExampleMatcher.matching()
-//                .withMatcher("deleted", ExampleMatcher.GenericPropertyMatchers.exact())
-//                .withMatcher("account", ExampleMatcher.GenericPropertyMatchers.contains())
-//                .withMatcher("name" ,ExampleMatcher.GenericPropertyMatchers.contains());//全部模糊查询，即%{name}%
-//        Example<SysUserPO> example = Example.of(sysUserPO, matcher);
-//        Page<SysUserPO> resultPage = sysUserRepository.findAll(example, pageable);
-        //        Mybatis方式
-        Map param = JSON.parseObject(search);
-        if (ObjectUtils.isEmpty(param)) {
-            param = new HashMap();
-        }
-
-        param.put("currentBeginIndex", page.getCurrentBeginIndex());
-        param.put("pageSize", page.getPageSize());
-        return sysUserMapper.getPage(param);
     }
 
     /**

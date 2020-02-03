@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="owner.yuzl.manage.mapper.HolidayMapper">
+
+    <!--列表查询-->
+    <select id="getHolidays" parameterType="java.util.Map" resultType="Holiday">
+        SELECT wah.id id, wah.type type, wah.content content, wah.create_time createTime,
+        wah.begin_date beginDate, wah.end_date endDate,
+        sda.name typeName,
+        su.account createUserAccount
+        FROM t_work_apply_holiday wah
+        LEFT JOIN t_sys_dictype sd
+        ON sd.code = #{holidayType}
+        LEFT JOIN t_sys_dictionary sda
+        ON sda.code = wah.type
+        AND sda.type_id = sd.id
+        LEFT JOIN t_sys_user su
+        ON su.id = wah.create_user
+        <where>
+            <if test="type != null">
+                AND wah.type = #{type}
+            </if>
+            AND wah.deleted = 0
+        </where>
+        <if test="beginIndex != null and pageSize != null">
+            LIMIT #{beginIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <!--总量查询-->
+    <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM t_work_apply_holiday
+        <where>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            AND deleted = 0
+        </where>
+    </select>
+
+    <!--根据id查询部门-->
+    <select id="getHolidayById" parameterType="java.lang.Long" resultType="Holiday">
+        SELECT id, code, name
+        FROM t_work_apply_holiday
+        WHERE id = #{id}
+    </select>
+
+    <!--插入-->
+    <insert id="insert" parameterType="Holiday">
+        INSERT INTO t_work_apply_holiday
+        (id, code, name, create_time)
+        VALUES
+        (null, #{code}, #{name}, #{createTime})
+    </insert>
+
+    <!--更新-->
+    <update id="update" parameterType="Holiday">
+        UPDATE t_work_apply_holiday
+        SET code = #{code}, name = #{name}, modify_time = #{modifyTime}
+        WHERE id = #{id}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="logicDeleteById">
+        UPDATE t_work_apply_holiday
+        SET deleted = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

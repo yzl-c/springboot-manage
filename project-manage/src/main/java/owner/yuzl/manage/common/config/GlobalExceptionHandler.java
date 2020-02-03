@@ -13,11 +13,10 @@ import javax.servlet.http.HttpServletResponse;
  * @Date：2020/2/1 9:48
  * @Description：全局异常处理
  */
-@ControllerAdvice
 public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public Result globalException(HttpServletResponse response, NullPointerException ex){
+    public Result globalException(HttpServletResponse response, Exception ex){
         return ResultFactory.buildResult(null, "GlobalExceptionHandler:" + ex.getMessage(), response.getStatus());
     }
 }
