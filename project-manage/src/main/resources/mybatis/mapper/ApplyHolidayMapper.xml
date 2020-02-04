@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="owner.yuzl.manage.mapper.ApplyHolidayMapper">
+
+    <!--列表查询-->
+    <select id="getApplyHolidays" parameterType="java.util.Map" resultType="ApplyHoliday">
+        SELECT wah.id id, wah.type type, wah.content content, wah.create_time createTime, wah.begin_date beginDate, wah.end_date endDate,
+        sda1.name typeName,
+        sda2.name statusName,
+        sda3.name resultName,
+        su.account createUserAccount, su.name createUserName
+        FROM t_work_apply_holiday wah
+--         假期类型名称
+        LEFT JOIN t_sys_dictionary sda1
+        ON sda1.code = wah.type
+        AND sda1.type_code = #{holidayType}
+--         申请状态名称
+        LEFT JOIN t_sys_dictionary sda2
+        ON sda2.code = wah.status
+        AND sda2.type_code = #{applyStatusType}
+--         申请结果名称
+        LEFT JOIN t_sys_dictionary sda3
+        ON sda3.code = wah.result
+        AND sda3.type_code = #{applyResultType}
+        LEFT JOIN t_sys_user su
+        ON su.id = wah.create_user
+        <where>
+            <if test="type != null and type != ''">
+                AND wah.type = #{type}
+            </if>
+            AND wah.deleted = 0
+        </where>
+        <if test="beginIndex != null and pageSize != null">
+            LIMIT #{beginIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <!--总量查询-->
+    <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM t_work_apply_holiday
+        <where>
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+            AND deleted = 0
+        </where>
+    </select>
+
+    <!--根据id查询请假申请-->
+    <select id="getApplyHolidayById" parameterType="java.util.Map" resultType="ApplyHoliday">
+        SELECT wah.id id, wah.type type, wah.content content, wah.create_time createTime, wah.begin_date beginDate, wah.end_date endDate,
+        sda1.name typeName,
+        sda2.name statusName,
+        sda3.name resultName,
+        su.account createUserAccount, su.name createUserName
+        FROM t_work_apply_holiday wah
+--         假期类型名称
+        LEFT JOIN t_sys_dictionary sda1
+        ON sda1.code = wah.type
+        AND sda1.type_code = #{holidayType}
+--         申请状态名称
+        LEFT JOIN t_sys_dictionary sda2
+        ON sda2.code = wah.status
+        AND sda2.type_code = #{applyStatusType}
+--         申请结果名称
+        LEFT JOIN t_sys_dictionary sda3
+        ON sda3.code = wah.result
+        AND sda3.type_code = #{applyResultType}
+        LEFT JOIN t_sys_user su
+        ON su.id = wah.create_user
+        WHERE wah.id = #{id}
+    </select>
+
+    <!--插入-->
+    <insert id="insert" parameterType="ApplyHoliday" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_work_apply_holiday
+        (id, type, begin_date, end_date, content, create_user, create_time)
+        VALUES
+        (null, #{type}, #{beginDate}, #{endDate}, #{content}, #{createUser}, #{createTime})
+    </insert>
+
+    <!--更新-->
+    <update id="update" parameterType="ApplyHoliday">
+        UPDATE t_work_apply_holiday
+        SET type = #{type},
+        begin_date = #{beginDate},
+        end_date = #{endDate},
+        content = #{content},
+        modify_time = #{modifyTime}
+        WHERE id = #{id}
+    </update>
+
+    <!--请假申请审核-->
+    <update id="approve" parameterType="ApplyHoliday">
+        UPDATE t_work_apply_holiday
+        SET status = 1,result = #{result}
+        WHERE id = #{id}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="logicDeleteById">
+        UPDATE t_work_apply_holiday
+        SET deleted = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

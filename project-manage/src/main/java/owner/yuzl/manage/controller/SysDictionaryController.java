@@ -32,13 +32,13 @@ public class SysDictionaryController {
     public Result getDictionarysList(SysDictionaryPO sysDictionary, Integer pageNum, Integer pageSize) {
         long total = sysDictionaryService.countTotal(sysDictionary);
         List<SysDictionaryPO> dataList = sysDictionaryService.getDictionarysList(sysDictionary, pageNum, pageSize);
-        return ResultFactory.buildSuccessResult(new ResultPage(total, pageNum, dataList), "获取权限列表数据成功");
+        return ResultFactory.buildSuccessResult(new ResultPage(total, pageNum, dataList), "获取字典列表数据成功");
     }
 
     /**
-     * 获取权限信息
+     * 获取字典信息
      * @param id
-     * @return 权限信息
+     * @return 字典信息
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Result getUserById(@PathVariable(value = "id") Long id) {

@@ -8,7 +8,7 @@
         <result property="code" column="code"></result>
         <result property="name" column="name"></result>
         <result property="deleted" column="deleted"></result>
-        <collection property="dictionarys" column="id" select="owner.yuzl.manage.mapper.SysDictionaryMapper.getDictionarysByTypeId"></collection>
+        <collection property="dictionarys" column="code" select="owner.yuzl.manage.mapper.SysDictionaryMapper.getDictionarysByTypeCode"></collection>
     </resultMap>
 
     <!--总量查询-->

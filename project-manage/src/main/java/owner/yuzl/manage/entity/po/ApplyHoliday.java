@@ -10,26 +10,34 @@ import java.util.Date;
  * @Description：
  */
 @Data
-public class Holiday {
+public class ApplyHoliday {
     private Long id;
 
     private String type;
 
     private String typeName;
 
-    private Integer duration;
+    private String status;
 
-    private Integer status;
+    private String statusName;
+
+    private String result;
+
+    private String resultName;
 
     private Date beginDate;
 
     private Date endDate;
 
-    private Integer createUser;
+    private String content;
+
+    private Long createUser;
 
     private String createUserAccount;
 
-    private Integer modifyUser;
+    private String createUserName;
+
+    private Long modifyUser;
 
     private Date createTime;
 

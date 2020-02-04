@@ -17,7 +17,7 @@ public class SysDictionaryPO {
 
     private String name;
 
-    private Long typeId;
+    private String typeCode;
 
     private Integer createUser;
 

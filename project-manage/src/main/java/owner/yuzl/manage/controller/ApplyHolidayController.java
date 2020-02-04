@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import owner.yuzl.manage.common.result.Result;
 import owner.yuzl.manage.common.result.ResultFactory;
 import owner.yuzl.manage.common.result.ResultPage;
-import owner.yuzl.manage.entity.po.Holiday;
-import owner.yuzl.manage.service.HolidayService;
+import owner.yuzl.manage.entity.po.ApplyHoliday;
+import owner.yuzl.manage.service.ApplyHolidayService;
 
 import java.util.List;
 
@@ -19,24 +19,24 @@ import java.util.List;
  * @Description：
  */
 @RestController
-@RequestMapping(value = "/holiday")
-public class HolidayController {
-    private Logger logger = LoggerFactory.getLogger(HolidayController.class);
+@RequestMapping(value = "/holidayApply")
+public class ApplyHolidayController {
+    private Logger logger = LoggerFactory.getLogger(ApplyHolidayController.class);
 
     @Autowired
-    private HolidayService holidayService;
+    private ApplyHolidayService applyHolidayService;
 
     /**
      * 获取分页查询结果
-     * @param holiday
+     * @param applyHoliday
      * @param pageNum
      * @param pageSize
      * @return 查询结果
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Result getHolidays(Holiday holiday, Integer pageNum, Integer pageSize) {
-        long total = holidayService.countTotal(holiday);
-        List<Holiday> dataList = holidayService.getHolidays(holiday, pageNum, pageSize);
+    public Result getHolidays(ApplyHoliday applyHoliday, Integer pageNum, Integer pageSize) {
+        long total = applyHolidayService.countTotal(applyHoliday);
+        List<ApplyHoliday> dataList = applyHolidayService.getHolidays(applyHoliday, pageNum, pageSize);
         return ResultFactory.buildSuccessResult(new ResultPage(total, pageNum, dataList), "请求列表数据成功");
     }
 
@@ -50,29 +50,29 @@ public class HolidayController {
         if (StringUtils.isEmpty(id)) {
             return ResultFactory.buildFailResult("获取信息失败");
         }
-        Holiday holiday = holidayService.getOneById(id);
-        return ResultFactory.buildSuccessResult(holiday, "获取信息成功");
+        ApplyHoliday applyHoliday = applyHolidayService.getOneById(id);
+        return ResultFactory.buildSuccessResult(applyHoliday, "获取信息成功");
     }
 
     /**
      * 执行添加操作
-     * @param holiday
+     * @param applyHoliday
      * @return 执行结果
      */
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public Result create(@RequestBody Holiday holiday) {
-        holidayService.create(holiday);
+    public Result create(@RequestBody ApplyHoliday applyHoliday) {
+        applyHolidayService.create(applyHoliday);
         return ResultFactory.buildSuccessResult(null, "添加成功");
     }
 
     /**
      * 执行更新操作
-     * @param holiday
+     * @param applyHoliday
      * @return 执行结果
      */
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public Result update(@RequestBody Holiday holiday) {
-        holidayService.update(holiday);
+    public Result update(@RequestBody ApplyHoliday applyHoliday) {
+        applyHolidayService.update(applyHoliday);
         return ResultFactory.buildSuccessResult(null, "更新成功");
     }
 
@@ -83,7 +83,7 @@ public class HolidayController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
-        holidayService.logicDeleteById(id);
+        applyHolidayService.logicDeleteById(id);
         return ResultFactory.buildSuccessResult(null, "删除成功");
     }
 

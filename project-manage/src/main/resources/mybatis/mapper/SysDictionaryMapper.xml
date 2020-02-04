@@ -11,6 +11,9 @@
             <if test="code != null and code != ''">
                 AND code = #{code}
             </if>
+            <if test="typeCode != null and typeCode != ''">
+                AND type_code = #{typeCode}
+            </if>
             <if test="name != null and name != ''">
                 AND INSTR(name, #{name}) > 0
             </if>
@@ -20,11 +23,14 @@
 
     <!--查询字典列表-->
     <select id="getDictionarys" resultType="SysDictionaryPO">
-        SELECT id, code, name, type_id
+        SELECT id, code, name, type_code
         FROM t_sys_dictionary
         <where>
             <if test="code != null and code != ''">
                 AND code = #{code}
+            </if>
+            <if test="typeCode != null and typeCode != ''">
+                AND type_code = #{typeCode}
             </if>
             <if test="name != null and name != ''">
                 AND INSTR(name, #{name}) > 0
@@ -36,17 +42,17 @@
         </if>
     </select>
 
-    <!--根据类型id查询字典-->
-    <select id="getDictionarysByTypeId" parameterType="java.lang.Long" resultType="SysDictionaryPO">
-        SELECT d.id, d.code, d.name, d.type_id
+    <!--根据类型code查询字典-->
+    <select id="getDictionarysByTypeCode" parameterType="java.lang.String" resultType="SysDictionaryPO">
+        SELECT d.id, d.code, d.name, d.type_code
         FROM t_sys_dictionary d
-        WHERE d.type_id = #{typeId}
+        WHERE d.type_code = #{typeCode}
         AND d.deleted = 0
     </select>
 
     <!--根据id查询字典-->
     <select id="getDictionaryById" parameterType="java.lang.Long" resultType="SysDictionaryPO">
-        SELECT id, code, name, type_id
+        SELECT id, code, name, type_code
         FROM t_sys_dictionary
         WHERE id = #{id}
     </select>
@@ -54,9 +60,9 @@
     <!--插入-->
     <insert id="insert" parameterType="SysDictionaryPO">
         INSERT INTO t_sys_dictionary
-        (id, type_id, code, name, create_time)
+        (id, type_code, code, name, create_time)
         VALUES
-        (null, #{typeId}, #{code}, #{name}, #{createTime})
+        (null, #{typeCode}, #{code}, #{name}, #{createTime})
     </insert>
 
     <!--更新-->
@@ -77,12 +83,12 @@
     <update id="logicDeleteByTypeId">
         UPDATE t_sys_dictionary
         SET deleted = 1
-        WHERE type_id = #{typeId}
+        WHERE type_code = #{typeCode}
     </update>
 
     <!--code查询字典类型列表-->
     <select id="getDictionarysByCode" resultType="SysDictionaryPO">
-        SELECT id, code, name, type_id
+        SELECT id, code, name, type_code
         FROM t_sys_dictionary
         WHERE deleted = 0
         <if test="code != null and code != ''">

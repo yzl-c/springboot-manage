@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="owner.yuzl.manage.mapper.ProcessHolidayMapper">
+
+    <!--列表查询-->
+    <select id="getProcessHolidays" parameterType="java.util.Map" resultType="ProcessHoliday">
+        SELECT wph.id id, wph.apply_id applyId, wph.apply_time applyTime, wph.apply_user applyUser, wph.approve_user approveUser, wph.approve_time approveTime, wph.result,
+        su1.account applyUserAccount, su1.name applyUserName,
+        su2.account approveUserAccount, su2.name approveUserName,
+        sda.name resultName
+        FROM t_work_process_holiday wph
+        LEFT JOIN t_sys_user su1
+        ON su1.id = wph.apply_user
+        AND su1.deleted = 0
+        LEFT JOIN t_sys_user su2
+        ON su2.id = wph.approve_user
+        AND su2.deleted = 0
+--         申请结果名称
+        LEFT JOIN t_sys_dictionary sda
+        ON sda.code = wph.result
+        AND sda.type_code = #{applyResultType}
+        <where>
+            AND wph.deleted = 0
+        </where>
+        <if test="beginIndex != null and pageSize != null">
+            LIMIT #{beginIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <!--总量查询-->
+    <select id="countTotal" parameterType="java.util.Map" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM t_work_process_holiday
+        <where>
+            AND deleted = 0
+        </where>
+    </select>
+
+    <!--根据id查询请假申请-->
+    <select id="getProcessHolidayById" parameterType="java.util.Map" resultType="ProcessHoliday">
+        SELECT wph.id id, wph.apply_id applyId, wph.apply_time applyTime, wph.apply_user applyUser, wph.approve_user approveUser, wph.approve_time approveTime, wph.result,
+        su1.account applyUserAccount, su1.name applyUserName,
+        su2.account approveUserAccount, su2.name approveUserName,
+        sda.name resultName
+        FROM t_work_process_holiday wph
+        LEFT JOIN t_sys_user su1
+        ON su1.id = wph.apply_user
+        AND su1.deleted = 0
+        LEFT JOIN t_sys_user su2
+        ON su2.id = wph.approve_user
+        AND su2.deleted = 0
+--         申请结果名称
+        LEFT JOIN t_sys_dictionary sda
+        ON sda.code = wph.result
+        AND sda.type_code = #{applyResultType}
+        WHERE wph.id = #{id}
+    </select>
+
+    <!--插入-->
+    <insert id="insert" parameterType="ProcessHoliday" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_work_process_holiday
+        (id, apply_id, apply_user, apply_time)
+        VALUES
+        (null, #{applyId}, #{applyUser}, #{applyTime})
+    </insert>
+
+    <!--审核-->
+    <update id="approve" parameterType="ProcessHoliday">
+        UPDATE t_work_process_holiday
+        SET approve_user = #{approveUser},
+        approve_time = #{approveTime},
+        result = #{result}
+        WHERE id = #{id}
+    </update>
+
+    <!--逻辑删除-->
+    <update id="logicDeleteById">
+        UPDATE t_work_process_holiday
+        SET deleted = 1
+        WHERE id = #{id}
+    </update>
+</mapper>
