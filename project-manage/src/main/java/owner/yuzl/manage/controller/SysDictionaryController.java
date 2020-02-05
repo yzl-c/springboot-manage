@@ -1,5 +1,6 @@
 package owner.yuzl.manage.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class SysDictionaryController {
      * @param
      * @return
      */
+//    @RequiresPermissions(value = "dictionary:list")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getDictionarysList(SysDictionaryPO sysDictionary, Integer pageNum, Integer pageSize) {
         long total = sysDictionaryService.countTotal(sysDictionary);
@@ -54,6 +56,7 @@ public class SysDictionaryController {
      * @param sysDictionary
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "dictionary:list:create")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysDictionaryPO sysDictionary) {
         sysDictionaryService.create(sysDictionary);
@@ -65,6 +68,7 @@ public class SysDictionaryController {
      * @param sysDictionary
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "dictionary:list:update")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysDictionaryPO sysDictionary) {
         sysDictionaryService.update(sysDictionary);
@@ -76,6 +80,7 @@ public class SysDictionaryController {
      * @param id
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "dictionary:list:delete")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysDictionaryService.logicDeleteById(id);

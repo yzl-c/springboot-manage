@@ -5,10 +5,10 @@
 
     <!--列表查询-->
     <select id="getApplyHolidays" parameterType="java.util.Map" resultType="ApplyHoliday">
-        SELECT wah.id id, wah.type type, wah.content content, wah.create_time createTime, wah.begin_date beginDate, wah.end_date endDate,
-        sda1.name typeName,
-        sda2.name statusName,
-        sda3.name resultName,
+        SELECT wah.id id, wah.content content, wah.create_time createTime, wah.begin_date beginDate, wah.end_date endDate,
+        wah.type type, sda1.name typeName,
+        wah.status status, sda2.name statusName,
+        wah.result result, sda3.name resultName,
         su.account createUserAccount, su.name createUserName
         FROM t_work_apply_holiday wah
 --         假期类型名称
@@ -50,10 +50,10 @@
 
     <!--根据id查询请假申请-->
     <select id="getApplyHolidayById" parameterType="java.util.Map" resultType="ApplyHoliday">
-        SELECT wah.id id, wah.type type, wah.content content, wah.create_time createTime, wah.begin_date beginDate, wah.end_date endDate,
-        sda1.name typeName,
-        sda2.name statusName,
-        sda3.name resultName,
+        SELECT wah.id id, wah.content content, wah.create_time createTime, wah.begin_date beginDate, wah.end_date endDate,
+        wah.type type, sda1.name typeName,
+        wah.status status, sda2.name statusName,
+        wah.result result, sda3.name resultName,
         su.account createUserAccount, su.name createUserName
         FROM t_work_apply_holiday wah
 --         假期类型名称

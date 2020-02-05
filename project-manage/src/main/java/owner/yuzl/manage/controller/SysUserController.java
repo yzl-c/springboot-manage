@@ -1,5 +1,6 @@
 package owner.yuzl.manage.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class SysUserController {
      * @param pageSize
      * @return 查询结果
      */
+//    @RequiresPermissions(value = "user:list")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getUsers(SysUserPO queryUser, Integer pageNum, Integer pageSize) {
         long total = sysUserService.countTotal(queryUser);
@@ -59,6 +61,7 @@ public class SysUserController {
      * @param sysUserPO
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "user:list:create")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysUserPO sysUserPO) {
         sysUserService.create(sysUserPO);
@@ -70,6 +73,7 @@ public class SysUserController {
      * @param sysUserPO
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "user:list:update")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysUserPO sysUserPO) {
         sysUserService.update(sysUserPO);
@@ -81,6 +85,7 @@ public class SysUserController {
      * @param id
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "user:list:delete")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysUserService.logicDeleteById(id);

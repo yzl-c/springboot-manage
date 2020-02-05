@@ -42,6 +42,13 @@ public class LoginController {
             return ResultFactory.buildFailResult("登录失败");
         }
     }
+
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
+    public Result logout(){
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return ResultFactory.buildSuccessResult(null, "退出成功");
+    }
 /*    public static void main(String[] args) {
         //明码
         String password = "wxy";

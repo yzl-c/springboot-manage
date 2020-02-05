@@ -1,6 +1,7 @@
 package owner.yuzl.manage.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -23,13 +24,14 @@ import java.util.Map;
  * @Description：
  */
 @Transactional
-@Service(value = "HolidayService")
+@Service
 public class ProcessHolidayServiceImpl implements ProcessHolidayService {
 
     @Autowired
     ProcessHolidayMapper processHolidayMapper;
 
     @Autowired
+    @Lazy
     ApplyHolidayService applyHolidayService;
 
     /**

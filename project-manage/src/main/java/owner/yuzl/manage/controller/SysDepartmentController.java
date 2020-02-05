@@ -1,5 +1,6 @@
 package owner.yuzl.manage.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class SysDepartmentController {
      * @param pageSize
      * @return 查询结果
      */
+//    @RequiresPermissions(value = "department:list")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getDepartments(SysDepartmentPO queryDepartment, Integer pageNum, Integer pageSize) {
         long total = sysDepartmentService.countTotal(queryDepartment);
@@ -59,6 +61,7 @@ public class SysDepartmentController {
      * @param sysDepartmentPO
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "department:list:create")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysDepartmentPO sysDepartmentPO) {
         sysDepartmentService.create(sysDepartmentPO);
@@ -70,6 +73,7 @@ public class SysDepartmentController {
      * @param sysDepartmentPO
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "department:list:update")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysDepartmentPO sysDepartmentPO) {
         sysDepartmentService.update(sysDepartmentPO);
@@ -81,6 +85,7 @@ public class SysDepartmentController {
      * @param id
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "department:list:delete")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysDepartmentService.logicDeleteById(id);

@@ -6,6 +6,7 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,10 +20,10 @@ import java.util.HashMap;
 @Configuration
 public class ShiroConfig {
 
-//    @Bean(name = "lifecycleBeanPostProcessor")
-//    public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
-//        return new LifecycleBeanPostProcessor();
-//    }
+    @Bean(name = "lifecycleBeanPostProcessor")
+    public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
+    }
 
     /**
      * @Bean Shiro Filter
@@ -35,7 +36,7 @@ public class ShiroConfig {
          * 设置安全管理器，将创建的安全管理器放进shiroFilterFactoryBean过滤工厂里面
          */
         shiroFilterFactoryBean.setSecurityManager(defaultSecurityManager);
-
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
         HashMap<String, String> filterMap = new HashMap<>();
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         filterMap.put("/login", "anon");
@@ -71,6 +72,14 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(securityManager);
         return advisor;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator defaultAAP = new DefaultAdvisorAutoProxyCreator();
+        defaultAAP.setProxyTargetClass(true);
+        return defaultAAP;
     }
 
 //    @Bean

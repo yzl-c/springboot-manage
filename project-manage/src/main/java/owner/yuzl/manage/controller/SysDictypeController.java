@@ -1,5 +1,6 @@
 package owner.yuzl.manage.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,7 @@ public class SysDictypeController {
      * @param
      * @return
      */
+//    @RequiresPermissions(value = "dictype:list")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getDictypesList(SysDictypePO sysDictype, Integer pageNum, Integer pageSize) {
         long total = sysDictypeService.countTotal(sysDictype);
@@ -65,6 +67,7 @@ public class SysDictypeController {
      * @param sysDictype
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "dictype:list:create")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysDictypePO sysDictype) {
         sysDictypeService.create(sysDictype);
@@ -76,6 +79,7 @@ public class SysDictypeController {
      * @param sysDictype
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "dictype:list:update")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysDictypePO sysDictype) {
         sysDictypeService.update(sysDictype);
@@ -87,6 +91,7 @@ public class SysDictypeController {
      * @param id
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "dictype:list:delete")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysDictypeService.logicDeleteById(id);

@@ -1,5 +1,6 @@
 package owner.yuzl.manage.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ public class SysMenuController {
      * @param
      * @return
      */
+//    @RequiresPermissions(value = "menu:list")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getMenusList(SysMenuPO sysMenu) {
 //        long total = sysMenuService.countTotal(sysMenu);
@@ -62,6 +64,7 @@ public class SysMenuController {
      * @param sysMenu
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "menu:list:create")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysMenuPO sysMenu) {
         sysMenuService.create(sysMenu);
@@ -73,6 +76,7 @@ public class SysMenuController {
      * @param sysMenu
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "menu:list:update")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysMenuPO sysMenu) {
         sysMenuService.update(sysMenu);
@@ -84,6 +88,7 @@ public class SysMenuController {
      * @param id
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "menu:list:delete")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysMenuService.logicDeleteById(id);

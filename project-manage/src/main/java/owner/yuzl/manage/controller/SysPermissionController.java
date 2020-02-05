@@ -1,5 +1,6 @@
 package owner.yuzl.manage.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class SysPermissionController {
      * @param
      * @return
      */
+//    @RequiresPermissions(value = "permission:list")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getPermissionsList(SysPermissionPO sysPermission, Integer pageNum, Integer pageSize) {
         long total = sysPermissionService.countTotal(sysPermission);
@@ -86,6 +88,7 @@ public class SysPermissionController {
      * @param sysPermission
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "permission:list:create")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysPermissionPO sysPermission) {
         sysPermissionService.create(sysPermission);
@@ -97,6 +100,7 @@ public class SysPermissionController {
      * @param sysPermission
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "permission:list:update")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysPermissionPO sysPermission) {
         sysPermissionService.update(sysPermission);
@@ -108,6 +112,7 @@ public class SysPermissionController {
      * @param id
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "permission:list:delete")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysPermissionService.logicDeleteById(id);

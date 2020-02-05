@@ -1,5 +1,6 @@
 package owner.yuzl.manage.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,7 @@ public class SysRoleController {
      * @param pageSize
      * @return
      */
+//    @RequiresPermissions(value = "role:list")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Result getRolesList(SysRolePO sysRole, Integer pageNum, Integer pageSize){
         long total = sysRoleService.countTotal(sysRole);
@@ -58,6 +60,7 @@ public class SysRoleController {
      * @param sysRole
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "role:list:create")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Result create(@RequestBody SysRolePO sysRole) {
         sysRoleService.create(sysRole);
@@ -69,6 +72,7 @@ public class SysRoleController {
      * @param sysRole
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "role:list:update")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result update(@RequestBody SysRolePO sysRole) {
         sysRoleService.update(sysRole);
@@ -80,6 +84,7 @@ public class SysRoleController {
      * @param id
      * @return 执行结果
      */
+//    @RequiresPermissions(value = "role:list:delete")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result logicDeleteById(@PathVariable(value = "id") Long id) {
         sysRoleService.logicDeleteById(id);
